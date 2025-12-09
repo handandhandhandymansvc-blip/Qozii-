@@ -20,6 +20,8 @@ import MyQuotes from './pages/pro/MyQuotes';
 import MessagesPro from './pages/pro/MessagesPro';
 import Earnings from './pages/pro/Earnings';
 import BuyCredits from './pages/pro/BuyCredits';
+import Portfolio from './pages/pro/Portfolio';
+import BackgroundCheck from './pages/pro/BackgroundCheck';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminSettings from './pages/admin/AdminSettings';
