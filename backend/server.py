@@ -870,6 +870,124 @@ async def get_payment_history(pro_id: str):
 
 # Removed duplicate - packages route now at line 432
 
+# ============ BACKGROUND CHECK ENDPOINTS ============
+@api_router.post("/background-check/initiate")
+async def initiate_background_check(data: dict):
+    """Initiate background check for a pro (mock implementation for now)"""
+    user_id = data.get("user_id")
+    payment_method = data.get("payment_method", "card")
+    
+    # Get pro profile
+    pro_profile = await db.pro_profiles.find_one({"user_id": user_id})
+    if not pro_profile:
+        raise HTTPException(status_code=404, detail="Pro profile not found")
+    
+    # Check if already verified or pending
+    if pro_profile.get("background_check_verified"):
+        raise HTTPException(status_code=400, detail="Already verified")
+    if pro_profile.get("background_check_status") == "pending":
+        raise HTTPException(status_code=400, detail="Background check already in progress")
+    
+    # Handle payment
+    background_check_fee = 50.0
+    
+    if payment_method == "credits":
+        # Deduct from credit balance
+        if pro_profile.get("weekly_budget", 0) < background_check_fee:
+            raise HTTPException(status_code=400, detail="Insufficient credits")
+        
+        await db.pro_profiles.update_one(
+            {"user_id": user_id},
+            {"$inc": {"weekly_budget": -background_check_fee}}
+        )
+        
+        # Record transaction
+        await db.payment_transactions.insert_one({
+            "pro_id": user_id,
+            "amount": background_check_fee,
+            "payment_type": "background_check",
+            "payment_method": "credits",
+            "status": "completed",
+            "created_at": datetime.now(timezone.utc).isoformat()
+        })
+    else:
+        # For card payment, in real implementation this would go through Stripe
+        # For now, we'll just record it as pending payment
+        await db.payment_transactions.insert_one({
+            "pro_id": user_id,
+            "amount": background_check_fee,
+            "payment_type": "background_check",
+            "payment_method": "card",
+            "status": "completed",
+            "created_at": datetime.now(timezone.utc).isoformat()
+        })
+    
+    # Update pro profile with background check info
+    await db.pro_profiles.update_one(
+        {"user_id": user_id},
+        {
+            "$set": {
+                "background_check_status": "pending",
+                "background_check_submitted_at": datetime.now(timezone.utc).isoformat(),
+                "background_check_data": {
+                    "full_name": data.get("fullName"),
+                    "dob": data.get("dob"),
+                    "address": data.get("address"),
+                    "city": data.get("city"),
+                    "state": data.get("state"),
+                    "zip_code": data.get("zipCode")
+                }
+            }
+        }
+    )
+    
+    logger.info(f"Background check initiated for pro {user_id}")
+    
+    # In real implementation, this would call Checkr API
+    # For mock/testing, we'll auto-approve after a delay (or admin can manually approve)
+    
+    return {
+        "success": True,
+        "message": "Background check initiated successfully",
+        "status": "pending"
+    }
+
+@api_router.post("/background-check/approve/{user_id}")
+async def approve_background_check(user_id: str):
+    """Admin endpoint to manually approve background check"""
+    result = await db.pro_profiles.update_one(
+        {"user_id": user_id},
+        {
+            "$set": {
+                "background_check_verified": True,
+                "background_check_status": "approved",
+                "background_check_date": datetime.now(timezone.utc).isoformat()
+            }
+        }
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Pro profile not found")
+    
+    logger.info(f"Background check approved for pro {user_id}")
+    
+    return {"success": True, "message": "Background check approved"}
+
+@api_router.get("/background-check/status/{user_id}")
+async def get_background_check_status(user_id: str):
+    """Get background check status for a pro"""
+    profile = await db.pro_profiles.find_one({"user_id": user_id})
+    if not profile:
+        raise HTTPException(status_code=404, detail="Pro profile not found")
+    
+    return {
+        "verified": profile.get("background_check_verified", False),
+        "status": profile.get("background_check_status", "not_started"),
+        "submitted_at": profile.get("background_check_submitted_at"),
+        "verified_date": profile.get("background_check_date")
+    }
+
+
 # ============ ADMIN PAYMENT MANAGEMENT ============
 @api_router.get("/admin/payments/packages")
 async def get_admin_payment_packages():
