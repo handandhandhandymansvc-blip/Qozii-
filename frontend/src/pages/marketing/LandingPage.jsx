@@ -387,7 +387,12 @@ const LandingPage = () => {
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="mb-4">
-                <img src="/fixitnow-customer-logo.jpg" alt="FixItNow" className="h-12 brightness-0 invert" />
+                <img 
+                  src="/fixitnow-customer-logo.jpg" 
+                  alt="FixItNow" 
+                  className="h-12"
+                  style={{filter: 'brightness(0) saturate(100%) invert(100%)'}}
+                />
               </div>
               <p className="text-gray-400">The affordable way to connect with trusted professionals.</p>
             </div>
