@@ -344,10 +344,10 @@ const LandingPage = () => {
 
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white rounded-2xl shadow-lg p-6">
+              <div key={index} className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-2xl">
-                    {testimonial.image}
+                  <div className={`w-14 h-14 bg-gradient-to-br ${testimonial.bgColor} rounded-full flex items-center justify-center shadow-md`}>
+                    <span className="text-white font-bold text-lg">{testimonial.initials}</span>
                   </div>
                   <div>
                     <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
@@ -359,7 +359,7 @@ const LandingPage = () => {
                     <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <p className="text-gray-700">{testimonial.text}</p>
+                <p className="text-gray-700 italic">"{testimonial.text}"</p>
               </div>
             ))}
           </div>
