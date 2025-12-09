@@ -429,6 +429,19 @@ async def get_pro_reviews(pro_id: str):
     return reviews
 
 # ============ PAYMENT ROUTES ============
+# IMPORTANT: Specific routes MUST come before path parameter routes
+@api_router.get("/payments/packages")
+async def get_payment_packages_public():
+    # Return payment packages for pros to buy credits
+    packages = {
+        "starter": {"amount": 50.0, "credits": 50.0, "description": "5 leads ($10 each)"},
+        "basic": {"amount": 100.0, "credits": 100.0, "description": "10 leads ($10 each)"},
+        "pro": {"amount": 200.0, "credits": 200.0, "description": "20 leads ($10 each)"},
+        "premium": {"amount": 500.0, "credits": 500.0, "description": "50 leads ($10 each)"},
+    }
+    logger.info(f"Payment packages endpoint called, returning: {packages}")
+    return packages
+
 @api_router.get("/payments/{pro_id}")
 async def get_pro_payments(pro_id: str):
     payments = await db.payments.find({"pro_id": pro_id}).sort("created_at", -1).to_list(100)
