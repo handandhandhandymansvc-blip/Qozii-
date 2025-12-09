@@ -350,4 +350,98 @@ export const deleteCategory = async (categoryId) => {
   }
 };
 
+// ============ PAYMENT APIs ============
+export const getPaymentPackages = async () => {
+  try {
+    const response = await apiClient.get('/payments/packages');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching payment packages:', error);
+    throw error;
+  }
+};
+
+export const createCheckoutSession = async (packageId, proId, originUrl) => {
+  try {
+    const response = await apiClient.post('/payments/create-checkout', null, {
+      params: { package_id: packageId, pro_id: proId, origin_url: originUrl }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error creating checkout session:', error);
+    throw error;
+  }
+};
+
+export const getCheckoutStatus = async (sessionId) => {
+  try {
+    const response = await apiClient.get(`/payments/checkout-status/${sessionId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error getting checkout status:', error);
+    throw error;
+  }
+};
+
+export const getPaymentHistory = async (proId) => {
+  try {
+    const response = await apiClient.get(`/payments/history/${proId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching payment history:', error);
+    throw error;
+  }
+};
+
+// ============ ADMIN PAYMENT APIs ============
+export const getAdminPaymentPackages = async () => {
+  try {
+    const response = await apiClient.get('/admin/payments/packages');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching admin payment packages:', error);
+    throw error;
+  }
+};
+
+export const updatePaymentPackage = async (packageId, packageData) => {
+  try {
+    const response = await apiClient.put(`/admin/payments/packages/${packageId}`, packageData);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating payment package:', error);
+    throw error;
+  }
+};
+
+export const createPaymentPackage = async (packageData) => {
+  try {
+    const response = await apiClient.post('/admin/payments/packages', packageData);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating payment package:', error);
+    throw error;
+  }
+};
+
+export const getAllTransactions = async (limit = 100) => {
+  try {
+    const response = await apiClient.get('/admin/payments/transactions', { params: { limit } });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching transactions:', error);
+    throw error;
+  }
+};
+
+export const getPaymentStats = async () => {
+  try {
+    const response = await apiClient.get('/admin/payments/stats');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching payment stats:', error);
+    throw error;
+  }
+};
+
 export default apiClient;
