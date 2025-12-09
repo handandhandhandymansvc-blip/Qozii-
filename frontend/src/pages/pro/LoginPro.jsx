@@ -17,9 +17,8 @@ const LoginPro = () => {
 
     const result = await login(formData.email, formData.password);
     if (result.success) {
-      // Set pro mode and force complete reload
-      localStorage.setItem('app_mode', 'pro');
-      window.location = '/pro/dashboard';
+      // Navigate to Pro Dashboard using React Router
+      navigate('/pro/dashboard');
     } else {
       setError(result.error);
       setLoading(false);
