@@ -26,16 +26,15 @@ const PrivateRoute = ({ children }) => {
 };
 
 const RootRedirect = () => {
-  const appMode = localStorage.getItem('app_mode');
   const { user } = useAuth();
   
+  // If user is logged in, go to their dashboard
   if (user) {
     return <Navigate to="/dashboard" />;
   }
-  if (!appMode) {
-    return <Navigate to="/select" />;
-  }
-  return <Navigate to="/login" />;
+  
+  // Otherwise show landing page
+  return <LandingPage />;
 };
 
 function App() {
