@@ -857,14 +857,24 @@ async def get_payment_history(pro_id: str):
 
 @api_router.get("/payments/packages")
 async def get_payment_packages():
-    packages = {
-        "starter": {"amount": 50.0, "credits": 50.0, "description": "5 leads ($10 each)"},
-        "basic": {"amount": 100.0, "credits": 100.0, "description": "10 leads ($10 each)"},
-        "pro": {"amount": 200.0, "credits": 200.0, "description": "20 leads ($10 each)"},
-        "premium": {"amount": 500.0, "credits": 500.0, "description": "50 leads ($10 each)"},
-    }
-    logger.info(f"Payment packages requested: {packages}")
-    return packages
+    # Get packages from database first, fallback to hardcoded
+    packages = await db.payment_packages.find({}).to_list(100)
+    if packages:
+        # Convert array to dictionary format expected by frontend
+        result = {}
+        for pkg in packages:
+            result[pkg["package_id"]] = {
+                "amount": pkg["amount"],
+                "credits": pkg["credits"],
+                "description": pkg["description"]
+            }
+        logger.info(f"Payment packages from DB: {result}")
+        return result
+    else:
+        # Fallback to hardcoded packages
+        result = LEAD_CREDIT_PACKAGES
+        logger.info(f"Payment packages hardcoded: {result}")
+        return result
 
 # ============ ADMIN PAYMENT MANAGEMENT ============
 @api_router.get("/admin/payments/packages")
