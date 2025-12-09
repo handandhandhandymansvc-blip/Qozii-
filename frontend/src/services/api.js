@@ -163,6 +163,29 @@ export const updateProBudget = async (proId, budget) => {
   }
 };
 
+export const uploadProImage = async (userId, imageType, imageContent) => {
+  try {
+    const response = await apiClient.post(`/pros/${userId}/upload-image`, {
+      type: imageType,
+      image: imageContent
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    throw error;
+  }
+};
+
+export const deletePortfolioImage = async (userId, imageIndex) => {
+  try {
+    const response = await apiClient.delete(`/pros/${userId}/portfolio-image/${imageIndex}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting portfolio image:', error);
+    throw error;
+  }
+};
+
 // ============ MESSAGING ============
 export const sendMessage = async (messageData) => {
   try {
