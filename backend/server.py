@@ -857,21 +857,14 @@ async def get_payment_history(pro_id: str):
 
 @api_router.get("/payments/packages")
 async def get_payment_packages():
-    # Fetch packages from database (same as admin endpoint)
-    packages = await db.payment_packages.find({"is_active": True}).to_list(100)
-    if not packages:
-        # Return hardcoded packages if none in database
-        return LEAD_CREDIT_PACKAGES
-    
-    # Convert to dict format expected by frontend
-    result = {}
-    for pkg in packages:
-        result[pkg["package_id"]] = {
-            "amount": pkg["amount"],
-            "credits": pkg["credits"],
-            "description": pkg["description"]
-        }
-    return result
+    # Return payment packages for pros to buy credits
+    packages = {
+        "starter": {"amount": 50.0, "credits": 50.0, "description": "5 leads ($10 each)"},
+        "basic": {"amount": 100.0, "credits": 100.0, "description": "10 leads ($10 each)"},
+        "pro": {"amount": 200.0, "credits": 200.0, "description": "20 leads ($10 each)"},
+        "premium": {"amount": 500.0, "credits": 500.0, "description": "50 leads ($10 each)"},
+    }
+    return packages
 
 # ============ ADMIN PAYMENT MANAGEMENT ============
 @api_router.get("/admin/payments/packages")
