@@ -10,6 +10,11 @@ import JobDetails from './pages/customer/JobDetails';
 import BrowsePros from './pages/customer/BrowsePros';
 import ProProfile from './pages/customer/ProProfile';
 import Messages from './pages/customer/Messages';
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminSettings from './pages/admin/AdminSettings';
+import AdminUsers from './pages/admin/AdminUsers';
+import AdminRevenue from './pages/admin/AdminRevenue';
 import './App.css';
 
 const PrivateRoute = ({ children }) => {
