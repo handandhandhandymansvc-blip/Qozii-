@@ -534,6 +534,81 @@ async def get_admin_revenue(period: Optional[str] = "month"):
         ]
     }
 
+# ============ SERVICE CATEGORY ROUTES ============
+@api_router.get("/categories")
+async def get_categories(active_only: bool = True):
+    query = {"is_active": True} if active_only else {}
+    categories = await db.service_categories.find(query).sort("display_order", 1).to_list(100)
+    for cat in categories:
+        cat["_id"] = str(cat["_id"])
+    return categories
+
+@api_router.post("/admin/categories")
+async def create_category(category: ServiceCategoryCreate):
+    # Check if value already exists
+    existing = await db.service_categories.find_one({"value": category.value})
+    if existing:
+        raise HTTPException(status_code=400, detail="Category value already exists")
+    
+    category_dict = category.dict()
+    category_dict["id"] = str(uuid.uuid4())
+    category_dict["created_at"] = datetime.utcnow()
+    
+    await db.service_categories.insert_one(category_dict)
+    category_dict["_id"] = str(category_dict["_id"])
+    return {"success": True, "category": category_dict}
+
+@api_router.get("/admin/categories")
+async def get_all_categories_admin():
+    categories = await db.service_categories.find({}).sort("display_order", 1).to_list(100)
+    for cat in categories:
+        cat["_id"] = str(cat["_id"])
+    return categories
+
+@api_router.put("/admin/categories/{category_id}")
+async def update_category(category_id: str, category_update: ServiceCategoryUpdate):
+    update_data = {k: v for k, v in category_update.dict().items() if v is not None}
+    update_data["updated_at"] = datetime.utcnow()
+    
+    result = await db.service_categories.update_one(
+        {"id": category_id},
+        {"$set": update_data}
+    )
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Category not found")
+    return {"success": True}
+
+@api_router.delete("/admin/categories/{category_id}")
+async def delete_category(category_id: str):
+    # Soft delete by setting is_active to False
+    result = await db.service_categories.update_one(
+        {"id": category_id},
+        {"$set": {"is_active": False}}
+    )
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Category not found")
+    return {"success": True}
+
+# Initialize default categories if none exist
+@app.on_event("startup")
+async def initialize_default_categories():
+    count = await db.service_categories.count_documents({})
+    if count == 0:
+        default_categories = [
+            {"id": str(uuid.uuid4()), "name": "Handyman", "value": "handyman", "icon": "wrench", "color": "#3B82F6", "is_active": True, "display_order": 1, "created_at": datetime.utcnow()},
+            {"id": str(uuid.uuid4()), "name": "Plumbing", "value": "plumbing", "icon": "droplet", "color": "#0EA5E9", "is_active": True, "display_order": 2, "created_at": datetime.utcnow()},
+            {"id": str(uuid.uuid4()), "name": "Electrical", "value": "electrical", "icon": "zap", "color": "#F59E0B", "is_active": True, "display_order": 3, "created_at": datetime.utcnow()},
+            {"id": str(uuid.uuid4()), "name": "Painting", "value": "painting", "icon": "paintbrush", "color": "#EC4899", "is_active": True, "display_order": 4, "created_at": datetime.utcnow()},
+            {"id": str(uuid.uuid4()), "name": "Carpet Cleaning", "value": "carpet_cleaning", "icon": "sparkles", "color": "#8B5CF6", "is_active": True, "display_order": 5, "created_at": datetime.utcnow()},
+            {"id": str(uuid.uuid4()), "name": "Landscaping", "value": "landscaping", "icon": "tree", "color": "#10B981", "is_active": True, "display_order": 6, "created_at": datetime.utcnow()},
+            {"id": str(uuid.uuid4()), "name": "Cleaning", "value": "cleaning", "icon": "spray-can", "color": "#14B8A6", "is_active": True, "display_order": 7, "created_at": datetime.utcnow()},
+            {"id": str(uuid.uuid4()), "name": "HVAC", "value": "hvac", "icon": "wind", "color": "#06B6D4", "is_active": True, "display_order": 8, "created_at": datetime.utcnow()},
+            {"id": str(uuid.uuid4()), "name": "Roofing", "value": "roofing", "icon": "home", "color": "#EF4444", "is_active": True, "display_order": 9, "created_at": datetime.utcnow()},
+            {"id": str(uuid.uuid4()), "name": "Other", "value": "other", "icon": "more-horizontal", "color": "#6B7280", "is_active": True, "display_order": 10, "created_at": datetime.utcnow()},
+        ]
+        await db.service_categories.insert_many(default_categories)
+        logger.info("Default service categories initialized")
+
 app.include_router(api_router)
 
 app.add_middleware(
