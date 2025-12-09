@@ -88,7 +88,7 @@ const LoginPro = () => {
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               New to FixItNow Pro?{' '}
-              <Link to="/register" className="text-red-600 font-semibold hover:text-red-700">
+              <Link to="/pro/register" className="text-red-600 font-semibold hover:text-red-700">
                 Register as a Pro
               </Link>
             </p>
