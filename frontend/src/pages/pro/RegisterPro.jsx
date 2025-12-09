@@ -24,11 +24,8 @@ const RegisterPro = () => {
     try {
       const result = await register(formData);
       if (result.success) {
-        // Set pro mode FIRST
-        localStorage.setItem('app_mode', 'pro');
-        // Use window.location (not href) to force complete reload
-        // This will reload the page AND navigate to Pro Dashboard
-        window.location = '/pro/dashboard';
+        // Navigate to Pro Dashboard using React Router
+        navigate('/pro/dashboard');
       } else {
         setError(result.error || 'Registration failed. Please try again.');
         setLoading(false);
