@@ -136,6 +136,60 @@ async def update_pro_profile(user_id: str, profile_data: dict):
         raise HTTPException(status_code=404, detail="Profile not found")
     return {"success": True}
 
+@api_router.post("/pros/{user_id}/upload-image")
+async def upload_pro_image(user_id: str, image_data: dict):
+    """
+    Upload images for pro profile
+    Accepts: profile_image, logo_image, or portfolio_image
+    Images should be base64 encoded strings or URLs
+    """
+    image_type = image_data.get("type")  # "profile", "logo", or "portfolio"
+    image_content = image_data.get("image")  # base64 or URL
+    
+    if image_type == "profile":
+        result = await db.pro_profiles.update_one(
+            {"user_id": user_id},
+            {"$set": {"profile_image": image_content}}
+        )
+    elif image_type == "logo":
+        result = await db.pro_profiles.update_one(
+            {"user_id": user_id},
+            {"$set": {"logo_image": image_content}}
+        )
+    elif image_type == "portfolio":
+        result = await db.pro_profiles.update_one(
+            {"user_id": user_id},
+            {"$push": {"portfolio_images": image_content}}
+        )
+    else:
+        raise HTTPException(status_code=400, detail="Invalid image type")
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Profile not found")
+    
+    return {"success": True, "message": "Image uploaded successfully"}
+
+@api_router.delete("/pros/{user_id}/portfolio-image/{image_index}")
+async def delete_portfolio_image(user_id: str, image_index: int):
+    """Remove a portfolio image by index"""
+    profile = await db.pro_profiles.find_one({"user_id": user_id})
+    if not profile:
+        raise HTTPException(status_code=404, detail="Profile not found")
+    
+    portfolio = profile.get("portfolio_images", [])
+    if image_index >= len(portfolio):
+        raise HTTPException(status_code=404, detail="Image not found")
+    
+    # Remove the image at the specified index
+    portfolio.pop(image_index)
+    
+    result = await db.pro_profiles.update_one(
+        {"user_id": user_id},
+        {"$set": {"portfolio_images": portfolio}}
+    )
+    
+    return {"success": True, "message": "Image deleted successfully"}
+
 @api_router.get("/pros/search")
 async def search_pros(category: Optional[str] = None, location: Optional[str] = None):
     query = {}
