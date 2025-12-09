@@ -7,7 +7,7 @@ import RegisterPro from './pages/pro/RegisterPro';
 import DashboardPro from './pages/pro/DashboardPro';
 import BrowseJobs from './pages/pro/BrowseJobs';
 import JobDetailsPro from './pages/pro/JobDetailsPro';
-import ProfileSettings from './pages/pro/ProfileSettings';
+import ProfileSettings from './pages/pro/ProfileSettingsEnhanced';
 import MyQuotes from './pages/pro/MyQuotes';
 import MessagesPro from './pages/pro/MessagesPro';
 import Earnings from './pages/pro/Earnings';
