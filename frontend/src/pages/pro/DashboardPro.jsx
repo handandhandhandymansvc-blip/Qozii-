@@ -14,6 +14,7 @@ const DashboardPro = () => {
   const [recentJobs, setRecentJobs] = useState([]);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showVerificationBanner, setShowVerificationBanner] = useState(true);
 
   useEffect(() => {
     fetchDashboardData();
