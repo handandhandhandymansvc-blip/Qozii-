@@ -26,11 +26,10 @@ const RegisterPro = () => {
       if (result.success) {
         // Set pro mode FIRST
         localStorage.setItem('app_mode', 'pro');
-        // Add a small delay to ensure localStorage is written
-        setTimeout(() => {
-          // Force FULL page reload to switch to Pro App
-          window.location.replace('/pro/dashboard');
-        }, 100);
+        // Force COMPLETE browser reload (not just navigation)
+        window.location.href = '/pro/dashboard';
+        // Force reload to ensure new app loads
+        window.location.reload();
       } else {
         setError(result.error || 'Registration failed. Please try again.');
         setLoading(false);
