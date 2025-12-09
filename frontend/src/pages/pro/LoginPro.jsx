@@ -19,8 +19,7 @@ const LoginPro = () => {
     if (result.success) {
       // Set pro mode and force complete reload
       localStorage.setItem('app_mode', 'pro');
-      window.location.href = '/pro/dashboard';
-      window.location.reload();
+      window.location = '/pro/dashboard';
     } else {
       setError(result.error);
       setLoading(false);
