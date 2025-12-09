@@ -1,14 +1,15 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Depends
+from fastapi import FastAPI, APIRouter, HTTPException, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
-from typing import List, Optional
+from typing import List, Optional, Dict
 import os
 import logging
 from pathlib import Path
 from datetime import datetime
 import uuid
 import bcrypt
+from emergentintegrations.payments.stripe.checkout import StripeCheckout, CheckoutSessionResponse, CheckoutStatusResponse, CheckoutSessionRequest
 
 from models import (
     User, UserCreate, UserRole,
