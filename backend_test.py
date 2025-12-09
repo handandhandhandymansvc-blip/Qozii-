@@ -13,7 +13,7 @@ import base64
 from datetime import datetime
 
 # Backend URL from frontend .env
-BACKEND_URL = "https://maintenance-hub-113.preview.emergentagent.com/api"
+BACKEND_URL = "https://pro-connect-25.preview.emergentagent.com/api"
 
 class FixItNowProTester:
     def __init__(self):
