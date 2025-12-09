@@ -11,6 +11,7 @@ import ProfileSettings from './pages/pro/ProfileSettings';
 import MyQuotes from './pages/pro/MyQuotes';
 import MessagesPro from './pages/pro/MessagesPro';
 import Earnings from './pages/pro/Earnings';
+import BuyCredits from './pages/pro/BuyCredits';
 import './App.css';
 
 const PrivateRoute = ({ children }) => {
