@@ -130,7 +130,7 @@ const RegisterPro = () => {
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Already have an account?{' '}
-              <Link to="/login" className="text-red-600 font-semibold hover:text-red-700">
+              <Link to="/pro/login" className="text-red-600 font-semibold hover:text-red-700">
                 Log in
               </Link>
             </p>
