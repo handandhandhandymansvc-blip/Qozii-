@@ -55,21 +55,24 @@ const LandingPage = () => {
     {
       name: 'Sarah Johnson',
       role: 'Homeowner',
-      image: '👩',
+      initials: 'SJ',
+      bgColor: 'from-blue-400 to-blue-600',
       rating: 5,
       text: 'Found an amazing plumber in under an hour! The process was smooth and the quality was outstanding.'
     },
     {
       name: 'Mike Davis',
       role: 'Electrician',
-      image: '👨‍🔧',
+      initials: 'MD',
+      bgColor: 'from-green-400 to-green-600',
       rating: 5,
       text: 'Best decision for my business! The lead quality is excellent and pricing is very competitive.'
     },
     {
       name: 'Jennifer Lee',
       role: 'Homeowner',
-      image: '👩‍💼',
+      initials: 'JL',
+      bgColor: 'from-purple-400 to-purple-600',
       rating: 5,
       text: 'Completely free for customers and I got 5 quotes in 24 hours. The pros are professional and reasonably priced.'
     }
