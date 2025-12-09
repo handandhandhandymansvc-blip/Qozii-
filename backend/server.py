@@ -857,7 +857,7 @@ async def get_payment_history(pro_id: str):
 
 @api_router.get("/payments/packages")
 async def get_payment_packages():
-    return {"test": "working"}
+    return LEAD_CREDIT_PACKAGES
 
 # ============ ADMIN PAYMENT MANAGEMENT ============
 @api_router.get("/admin/payments/packages")
