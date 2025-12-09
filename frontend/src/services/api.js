@@ -299,4 +299,55 @@ export const getAdminRevenue = async (filters = {}) => {
   }
 };
 
+// ============ SERVICE CATEGORIES ============
+export const getCategories = async (activeOnly = true) => {
+  try {
+    const response = await apiClient.get('/categories', { params: { active_only: activeOnly } });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    throw error;
+  }
+};
+
+export const getAllCategoriesAdmin = async () => {
+  try {
+    const response = await apiClient.get('/admin/categories');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching admin categories:', error);
+    throw error;
+  }
+};
+
+export const createCategory = async (categoryData) => {
+  try {
+    const response = await apiClient.post('/admin/categories', categoryData);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating category:', error);
+    throw error;
+  }
+};
+
+export const updateCategory = async (categoryId, categoryData) => {
+  try {
+    const response = await apiClient.put(`/admin/categories/${categoryId}`, categoryData);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating category:', error);
+    throw error;
+  }
+};
+
+export const deleteCategory = async (categoryId) => {
+  try {
+    const response = await apiClient.delete(`/admin/categories/${categoryId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting category:', error);
+    throw error;
+  }
+};
+
 export default apiClient;
