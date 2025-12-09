@@ -613,6 +613,189 @@ async def initialize_default_categories():
         await db.service_categories.insert_many(default_categories)
         logger.info("Default service categories initialized")
 
+# ============ PAYMENT PACKAGES (FIXED - NEVER FROM FRONTEND) ============
+LEAD_CREDIT_PACKAGES = {
+    "starter": {"amount": 50.0, "credits": 50.0, "description": "5 leads ($10 each)"},
+    "basic": {"amount": 100.0, "credits": 100.0, "description": "10 leads ($10 each)"},
+    "pro": {"amount": 200.0, "credits": 200.0, "description": "20 leads ($10 each)"},
+    "premium": {"amount": 500.0, "credits": 500.0, "description": "50 leads ($10 each)"},
+}
+
+# ============ STRIPE PAYMENT ROUTES ============
+@api_router.post("/payments/create-checkout")
+async def create_checkout_session(request: Request, package_id: str, pro_id: str, origin_url: str):
+    # Validate package
+    if package_id not in LEAD_CREDIT_PACKAGES:
+        raise HTTPException(status_code=400, detail="Invalid package")
+    
+    # Get amount from server-side definition (NEVER from frontend)
+    package = LEAD_CREDIT_PACKAGES[package_id]
+    amount = package["amount"]
+    credits = package["credits"]
+    
+    # Verify pro exists
+    pro = await db.users.find_one({"id": pro_id, "role": "pro"})
+    if not pro:
+        raise HTTPException(status_code=404, detail="Pro not found")
+    
+    # Build dynamic URLs from frontend origin
+    success_url = f"{origin_url}/pro/payment-success?session_id={{CHECKOUT_SESSION_ID}}"
+    cancel_url = f"{origin_url}/pro/budget"
+    
+    # Initialize Stripe
+    webhook_url = f"{str(request.base_url)}api/webhook/stripe"
+    stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
+    
+    # Create checkout session
+    checkout_request = CheckoutSessionRequest(
+        amount=amount,
+        currency="usd",
+        success_url=success_url,
+        cancel_url=cancel_url,
+        metadata={
+            "pro_id": pro_id,
+            "package_id": package_id,
+            "credits": str(credits),
+            "type": "lead_credits"
+        },
+        payment_methods=["card"]  # Supports all cards, Apple Pay, Google Pay
+    )
+    
+    session: CheckoutSessionResponse = await stripe_checkout.create_checkout_session(checkout_request)
+    
+    # Create payment transaction record
+    transaction = {
+        "id": str(uuid.uuid4()),
+        "session_id": session.session_id,
+        "pro_id": pro_id,
+        "package_id": package_id,
+        "amount": amount,
+        "credits": credits,
+        "currency": "usd",
+        "payment_status": "pending",
+        "status": "initiated",
+        "metadata": checkout_request.metadata,
+        "created_at": datetime.utcnow(),
+        "updated_at": datetime.utcnow()
+    }
+    await db.payment_transactions.insert_one(transaction)
+    
+    return {"url": session.url, "session_id": session.session_id}
+
+@api_router.get("/payments/checkout-status/{session_id}")
+async def get_checkout_status(session_id: str, request: Request):
+    # Initialize Stripe
+    webhook_url = f"{str(request.base_url)}api/webhook/stripe"
+    stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
+    
+    # Get status from Stripe
+    status: CheckoutStatusResponse = await stripe_checkout.get_checkout_status(session_id)
+    
+    # Check if transaction already processed
+    transaction = await db.payment_transactions.find_one({"session_id": session_id})
+    if not transaction:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+    
+    # Only update if not already completed
+    if transaction["payment_status"] != "paid" and status.payment_status == "paid":
+        # Update transaction
+        await db.payment_transactions.update_one(
+            {"session_id": session_id},
+            {
+                "$set": {
+                    "payment_status": status.payment_status,
+                    "status": "completed",
+                    "updated_at": datetime.utcnow()
+                }
+            }
+        )
+        
+        # Add credits to pro's budget
+        pro_id = transaction["pro_id"]
+        credits = transaction["credits"]
+        
+        # Update pro profile budget
+        await db.pro_profiles.update_one(
+            {"user_id": pro_id},
+            {
+                "$inc": {"weekly_budget": credits}
+            }
+        )
+        
+        logger.info(f"Added {credits} credits to pro {pro_id} from payment {session_id}")
+    
+    return {
+        "status": status.status,
+        "payment_status": status.payment_status,
+        "amount_total": status.amount_total,
+        "currency": status.currency,
+        "metadata": status.metadata
+    }
+
+@api_router.post("/webhook/stripe")
+async def stripe_webhook(request: Request):
+    try:
+        # Get raw body and signature
+        body = await request.body()
+        signature = request.headers.get("Stripe-Signature")
+        
+        # Initialize Stripe
+        webhook_url = f"{str(request.base_url)}api/webhook/stripe"
+        stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
+        
+        # Handle webhook
+        webhook_response = await stripe_checkout.handle_webhook(body, signature)
+        
+        logger.info(f"Webhook received: {webhook_response.event_type} for session {webhook_response.session_id}")
+        
+        # Process based on event type
+        if webhook_response.payment_status == "paid":
+            # Check if already processed
+            transaction = await db.payment_transactions.find_one({"session_id": webhook_response.session_id})
+            if transaction and transaction["payment_status"] != "paid":
+                # Update transaction
+                await db.payment_transactions.update_one(
+                    {"session_id": webhook_response.session_id},
+                    {
+                        "$set": {
+                            "payment_status": "paid",
+                            "status": "completed",
+                            "updated_at": datetime.utcnow()
+                        }
+                    }
+                )
+                
+                # Add credits
+                pro_id = webhook_response.metadata.get("pro_id")
+                credits = float(webhook_response.metadata.get("credits", 0))
+                
+                if pro_id and credits > 0:
+                    await db.pro_profiles.update_one(
+                        {"user_id": pro_id},
+                        {"$inc": {"weekly_budget": credits}}
+                    )
+                    logger.info(f"Webhook: Added {credits} credits to pro {pro_id}")
+        
+        return {"status": "success"}
+    except Exception as e:
+        logger.error(f"Webhook error: {str(e)}")
+        raise HTTPException(status_code=400, detail=str(e))
+
+@api_router.get("/payments/history/{pro_id}")
+async def get_payment_history(pro_id: str):
+    transactions = await db.payment_transactions.find(
+        {"pro_id": pro_id}
+    ).sort("created_at", -1).to_list(100)
+    
+    for tx in transactions:
+        tx["_id"] = str(tx["_id"])
+    
+    return transactions
+
+@api_router.get("/payments/packages")
+async def get_payment_packages():
+    return LEAD_CREDIT_PACKAGES
+
 app.include_router(api_router)
 
 app.add_middleware(
