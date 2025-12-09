@@ -17,19 +17,36 @@ const PrivateRoute = ({ children }) => {
   return user ? children : <Navigate to="/login" />;
 };
 
+const RootRedirect = () => {
+  const appMode = localStorage.getItem('app_mode');
+  const { user } = useAuth();
+  
+  if (user) {
+    return <Navigate to="/dashboard" />;
+  }
+  if (!appMode) {
+    return <Navigate to="/select" />;
+  }
+  return <Navigate to="/login" />;
+};
+
 function App() {
   useEffect(() => {
-    localStorage.setItem('app_mode', 'customer');
+    // Only set if not already set
+    if (!localStorage.getItem('app_mode')) {
+      localStorage.setItem('app_mode', 'customer');
+    }
   }, []);
 
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<RootRedirect />} />
           <Route path="/select" element={<AppSelector />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path="/post-job" element={<PrivateRoute><PostJob /></PrivateRoute>} />
           <Route path="/job/:jobId" element={<PrivateRoute><JobDetails /></PrivateRoute>} />
           <Route path="/browse-pros" element={<PrivateRoute><BrowsePros /></PrivateRoute>} />
