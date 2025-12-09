@@ -184,14 +184,14 @@ const DashboardPro = () => {
 
         {/* Verification Status - Show if verified */}
         {profile && profile.background_check_verified && (
-          <div className="mb-8 bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-200 rounded-2xl p-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center shadow-md">
-                <Shield className="w-6 h-6 text-white fill-white" />
+          <div className="mb-6 bg-gradient-to-r from-green-50 to-green-100 border border-green-300 rounded-xl p-4 shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center shadow-md">
+                <Shield className="w-5 h-5 text-white fill-white" />
               </div>
               <div className="flex-1">
-                <div className="flex items-center gap-3 mb-1">
-                  <h3 className="text-lg font-bold text-gray-900">Background Check Verified</h3>
+                <div className="flex items-center gap-2 mb-0.5">
+                  <h3 className="text-sm font-bold text-gray-900">Background Check Verified</h3>
                   <VerificationBadge 
                     verified={true} 
                     verificationDate={profile.background_check_date}
@@ -199,7 +199,7 @@ const DashboardPro = () => {
                     size="sm"
                   />
                 </div>
-                <p className="text-gray-600 text-sm">Your verification badge is displayed on your profile and quotes</p>
+                <p className="text-gray-600 text-xs">Your badge is displayed on your profile and quotes</p>
               </div>
             </div>
           </div>
@@ -207,15 +207,15 @@ const DashboardPro = () => {
 
         {/* Pending Verification Status */}
         {profile && profile.background_check_status === 'pending' && (
-          <div className="mb-8 bg-yellow-50 border-2 border-yellow-200 rounded-2xl p-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                <Shield className="w-6 h-6 text-yellow-600" />
+          <div className="mb-6 bg-yellow-50 border border-yellow-300 rounded-xl p-4 shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+                <Shield className="w-5 h-5 text-yellow-600" />
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-bold text-gray-900 mb-1">Background Check In Progress</h3>
-                <p className="text-gray-600 text-sm">
-                  Your background check is being processed. Results typically available in 1-3 business days.
+                <h3 className="text-sm font-bold text-gray-900 mb-0.5">Background Check In Progress</h3>
+                <p className="text-gray-600 text-xs">
+                  Processing typically takes 1-3 business days. We&apos;ll notify you when complete.
                 </p>
               </div>
             </div>
