@@ -386,11 +386,8 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-red-600 to-orange-600 rounded-lg flex items-center justify-center">
-                  <Briefcase className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold">FixItNow</span>
+              <div className="mb-4">
+                <img src="/fixitnow-customer-logo.jpg" alt="FixItNow" className="h-12 brightness-0 invert" />
               </div>
               <p className="text-gray-400">The affordable way to connect with trusted professionals.</p>
             </div>
