@@ -193,7 +193,22 @@ class PlatformSettings(BaseModel):
     weekly_budget_min: float = 50.0
     auto_approve_pros: bool = False
     require_background_check: bool = False
+    # Payment method settings
+    enable_stripe: bool = True
+    enable_cashapp: bool = True
+    enable_paypal: bool = False
+    enable_apple_pay: bool = True
+    enable_google_pay: bool = True
+    enable_bnpl: bool = True  # Buy Now Pay Later (Klarna, Affirm)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+class PaymentPackage(BaseModel):
+    package_id: str
+    name: str
+    amount: float
+    credits: float
+    description: str
+    is_active: bool = True
 
 class AdminAnalytics(BaseModel):
     total_users: int
