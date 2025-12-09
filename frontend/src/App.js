@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import AppSelector from './pages/AppSelector';
@@ -10,6 +10,16 @@ import JobDetails from './pages/customer/JobDetails';
 import BrowsePros from './pages/customer/BrowsePros';
 import ProProfile from './pages/customer/ProProfile';
 import Messages from './pages/customer/Messages';
+import LoginPro from './pages/pro/LoginPro';
+import RegisterPro from './pages/pro/RegisterPro';
+import DashboardPro from './pages/pro/DashboardPro';
+import BrowseJobs from './pages/pro/BrowseJobs';
+import JobDetailsPro from './pages/pro/JobDetailsPro';
+import ProfileSettings from './pages/pro/ProfileSettingsEnhanced';
+import MyQuotes from './pages/pro/MyQuotes';
+import MessagesPro from './pages/pro/MessagesPro';
+import Earnings from './pages/pro/Earnings';
+import BuyCredits from './pages/pro/BuyCredits';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminSettings from './pages/admin/AdminSettings';
@@ -20,17 +30,26 @@ import AdminPayments from './pages/admin/AdminPayments';
 import LandingPage from './pages/marketing/LandingPage';
 import './App.css';
 
-const PrivateRoute = ({ children }) => {
+const CustomerPrivateRoute = ({ children }) => {
   const { user } = useAuth();
-  return user ? children : <Navigate to="/login" />;
+  return user && user.role === 'customer' ? children : <Navigate to="/login" />;
+};
+
+const ProPrivateRoute = ({ children }) => {
+  const { user } = useAuth();
+  return user && user.role === 'pro' ? children : <Navigate to="/pro/login" />;
 };
 
 const RootRedirect = () => {
   const { user } = useAuth();
   
-  // If user is logged in, go to their dashboard
+  // If user is logged in, redirect based on role
   if (user) {
-    return <Navigate to="/dashboard" />;
+    if (user.role === 'pro') {
+      return <Navigate to="/pro/dashboard" />;
+    } else if (user.role === 'customer') {
+      return <Navigate to="/dashboard" />;
+    }
   }
   
   // Otherwise show landing page
@@ -38,27 +57,36 @@ const RootRedirect = () => {
 };
 
 function App() {
-  useEffect(() => {
-    // Only set if not already set
-    if (!localStorage.getItem('app_mode')) {
-      localStorage.setItem('app_mode', 'customer');
-    }
-  }, []);
-
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          {/* Root and Common Routes */}
           <Route path="/" element={<RootRedirect />} />
           <Route path="/select" element={<AppSelector />} />
+          
+          {/* Customer Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/post-job" element={<PrivateRoute><PostJob /></PrivateRoute>} />
-          <Route path="/job/:jobId" element={<PrivateRoute><JobDetails /></PrivateRoute>} />
-          <Route path="/browse-pros" element={<PrivateRoute><BrowsePros /></PrivateRoute>} />
-          <Route path="/pro/:proId" element={<PrivateRoute><ProProfile /></PrivateRoute>} />
-          <Route path="/messages" element={<PrivateRoute><Messages /></PrivateRoute>} />
+          <Route path="/dashboard" element={<CustomerPrivateRoute><Dashboard /></CustomerPrivateRoute>} />
+          <Route path="/post-job" element={<CustomerPrivateRoute><PostJob /></CustomerPrivateRoute>} />
+          <Route path="/job/:jobId" element={<CustomerPrivateRoute><JobDetails /></CustomerPrivateRoute>} />
+          <Route path="/browse-pros" element={<CustomerPrivateRoute><BrowsePros /></CustomerPrivateRoute>} />
+          <Route path="/pro/:proId" element={<CustomerPrivateRoute><ProProfile /></CustomerPrivateRoute>} />
+          <Route path="/messages" element={<CustomerPrivateRoute><Messages /></CustomerPrivateRoute>} />
+          
+          {/* Pro Routes */}
+          <Route path="/pro/login" element={<LoginPro />} />
+          <Route path="/pro/register" element={<RegisterPro />} />
+          <Route path="/pro/dashboard" element={<ProPrivateRoute><DashboardPro /></ProPrivateRoute>} />
+          <Route path="/pro/browse-jobs" element={<ProPrivateRoute><BrowseJobs /></ProPrivateRoute>} />
+          <Route path="/pro/job/:jobId" element={<ProPrivateRoute><JobDetailsPro /></ProPrivateRoute>} />
+          <Route path="/pro/profile" element={<ProPrivateRoute><ProfileSettings /></ProPrivateRoute>} />
+          <Route path="/pro/my-quotes" element={<ProPrivateRoute><MyQuotes /></ProPrivateRoute>} />
+          <Route path="/pro/messages" element={<ProPrivateRoute><MessagesPro /></ProPrivateRoute>} />
+          <Route path="/pro/earnings" element={<ProPrivateRoute><Earnings /></ProPrivateRoute>} />
+          <Route path="/pro/buy-credits" element={<ProPrivateRoute><BuyCredits /></ProPrivateRoute>} />
+          <Route path="/pro/payment-success" element={<ProPrivateRoute><BuyCredits /></ProPrivateRoute>} />
           
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
