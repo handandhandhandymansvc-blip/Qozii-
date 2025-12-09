@@ -94,6 +94,86 @@ const DashboardPro = () => {
           <p className="text-gray-600">Here's your business overview</p>
         </div>
 
+        {/* Verification Banner - Show if not verified */}
+        {profile && !profile.background_check_verified && profile.background_check_status !== 'pending' && showVerificationBanner && (
+          <div className="mb-8 bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-200 rounded-2xl p-6 relative">
+            <button
+              onClick={() => setShowVerificationBanner(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            <div className="flex items-start gap-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                <Shield className="w-8 h-8 text-white" />
+              </div>
+              
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Get Background Check Verified</h3>
+                <p className="text-gray-700 mb-4">
+                  Stand out from the competition and win more jobs. Verified pros are trusted by customers and get more quote requests.
+                </p>
+                
+                <div className="flex flex-wrap items-center gap-4">
+                  <button
+                    onClick={() => navigate('/pro/background-check')}
+                    className="flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition shadow-md"
+                  >
+                    Get Verified Now
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+                  
+                  <div className="flex items-center gap-2 text-sm text-gray-700">
+                    <Shield className="w-4 h-4 text-green-600" />
+                    <span>$50 one-time fee</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Verification Status - Show if verified */}
+        {profile && profile.background_check_verified && (
+          <div className="mb-8 bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-200 rounded-2xl p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center shadow-md">
+                <Shield className="w-6 h-6 text-white fill-white" />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-1">
+                  <h3 className="text-lg font-bold text-gray-900">Background Check Verified</h3>
+                  <VerificationBadge 
+                    verified={true} 
+                    verificationDate={profile.background_check_date}
+                    showDate={true}
+                    size="sm"
+                  />
+                </div>
+                <p className="text-gray-600 text-sm">Your verification badge is displayed on your profile and quotes</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Pending Verification Status */}
+        {profile && profile.background_check_status === 'pending' && (
+          <div className="mb-8 bg-yellow-50 border-2 border-yellow-200 rounded-2xl p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                <Shield className="w-6 h-6 text-yellow-600" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-gray-900 mb-1">Background Check In Progress</h3>
+                <p className="text-gray-600 text-sm">
+                  Your background check is being processed. Results typically available in 1-3 business days.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow-lg p-6">
