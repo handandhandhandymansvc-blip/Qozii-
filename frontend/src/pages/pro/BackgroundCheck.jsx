@@ -146,7 +146,7 @@ const BackgroundCheck = () => {
             <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
               <Shield className="w-12 h-12 text-white fill-white" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">You're Verified!</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">You&apos;re Verified!</h1>
             <p className="text-xl text-gray-600 mb-6">
               Your background check was completed successfully
             </p>
