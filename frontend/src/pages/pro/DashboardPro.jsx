@@ -97,41 +97,88 @@ const DashboardPro = () => {
 
         {/* Verification Banner - Show if not verified */}
         {profile && !profile.background_check_verified && profile.background_check_status !== 'pending' && showVerificationBanner && (
-          <div className="mb-8 bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-200 rounded-2xl p-6 relative">
-            <button
-              onClick={() => setShowVerificationBanner(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            
-            <div className="flex items-start gap-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                <Shield className="w-8 h-8 text-white" />
-              </div>
-              
-              <div className="flex-1">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Get Background Check Verified</h3>
-                <p className="text-gray-700 mb-4">
-                  Stand out from the competition and win more jobs. Verified pros are trusted by customers and get more quote requests.
-                </p>
+          <div className="mb-6 bg-gradient-to-r from-green-50 to-green-100 border border-green-300 rounded-xl overflow-hidden shadow-sm">
+            {/* Minimized View */}
+            {isVerificationBannerMinimized ? (
+              <div className="flex items-center justify-between p-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                    <Shield className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="font-semibold text-gray-900 text-sm">Get Verified</span>
+                  <span className="text-xs text-gray-600">Stand out and win more jobs</span>
+                </div>
                 
-                <div className="flex flex-wrap items-center gap-4">
+                <div className="flex items-center gap-2">
                   <button
                     onClick={() => navigate('/pro/background-check')}
-                    className="flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition shadow-md"
+                    className="text-xs bg-green-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700 transition"
                   >
-                    Get Verified Now
-                    <ArrowRight className="w-5 h-5" />
+                    Start
                   </button>
+                  <button
+                    onClick={() => setIsVerificationBannerMinimized(false)}
+                    className="p-2 hover:bg-green-200 rounded-lg transition"
+                  >
+                    <ChevronDown className="w-4 h-4 text-gray-600" />
+                  </button>
+                  <button
+                    onClick={() => setShowVerificationBanner(false)}
+                    className="p-2 hover:bg-green-200 rounded-lg transition"
+                  >
+                    <X className="w-4 h-4 text-gray-600" />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              /* Expanded View */
+              <div className="p-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md">
+                    <Shield className="w-6 h-6 text-white" />
+                  </div>
                   
-                  <div className="flex items-center gap-2 text-sm text-gray-700">
-                    <Shield className="w-4 h-4 text-green-600" />
-                    <span>$50 one-time fee</span>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-base font-bold text-gray-900">Get Background Check Verified</h3>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => setIsVerificationBannerMinimized(true)}
+                          className="p-1.5 hover:bg-green-200 rounded-lg transition"
+                        >
+                          <ChevronUp className="w-4 h-4 text-gray-600" />
+                        </button>
+                        <button
+                          onClick={() => setShowVerificationBanner(false)}
+                          className="p-1.5 hover:bg-green-200 rounded-lg transition"
+                        >
+                          <X className="w-4 h-4 text-gray-600" />
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <p className="text-sm text-gray-700 mb-3">
+                      Stand out and win more jobs. Verified pros are trusted by customers.
+                    </p>
+                    
+                    <div className="flex flex-wrap items-center gap-3">
+                      <button
+                        onClick={() => navigate('/pro/background-check')}
+                        className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-green-700 transition shadow-sm"
+                      >
+                        Get Verified
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                      
+                      <div className="flex items-center gap-1.5 text-xs text-gray-600">
+                        <DollarSign className="w-3 h-3" />
+                        <span>$50 one-time</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         )}
 
