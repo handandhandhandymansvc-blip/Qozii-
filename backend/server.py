@@ -414,6 +414,12 @@ async def get_admin_settings():
             "weekly_budget_min": 50.0,
             "auto_approve_pros": False,
             "require_background_check": False,
+            "enable_stripe": True,
+            "enable_cashapp": True,
+            "enable_paypal": False,
+            "enable_apple_pay": True,
+            "enable_google_pay": True,
+            "enable_bnpl": True,
             "updated_at": datetime.utcnow()
         }
         await db.platform_settings.insert_one(default_settings)
