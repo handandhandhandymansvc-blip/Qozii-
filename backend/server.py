@@ -868,17 +868,7 @@ async def get_payment_history(pro_id: str):
     
     return transactions
 
-@api_router.get("/payments/packages")
-async def get_payment_packages():
-    # Return payment packages for pros to buy credits
-    packages = {
-        "starter": {"amount": 50.0, "credits": 50.0, "description": "5 leads ($10 each)"},
-        "basic": {"amount": 100.0, "credits": 100.0, "description": "10 leads ($10 each)"},
-        "pro": {"amount": 200.0, "credits": 200.0, "description": "20 leads ($10 each)"},
-        "premium": {"amount": 500.0, "credits": 500.0, "description": "50 leads ($10 each)"},
-    }
-    logger.info(f"Payment packages endpoint called, returning: {packages}")
-    return packages
+# Removed duplicate - packages route now at line 432
 
 # ============ ADMIN PAYMENT MANAGEMENT ============
 @api_router.get("/admin/payments/packages")
