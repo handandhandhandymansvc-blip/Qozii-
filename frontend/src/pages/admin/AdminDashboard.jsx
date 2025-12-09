@@ -129,7 +129,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <button
             onClick={() => navigate('/admin/settings')}
             className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all hover:scale-[1.02] text-left"
@@ -139,6 +139,17 @@ const AdminDashboard = () => {
             </div>
             <h3 className="text-lg font-bold text-gray-900 mb-2">Platform Settings</h3>
             <p className="text-gray-600 text-sm">Manage lead pricing, commissions, and business rules</p>
+          </button>
+
+          <button
+            onClick={() => navigate('/admin/categories')}
+            className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all hover:scale-[1.02] text-left"
+          >
+            <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
+              <Briefcase className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Service Categories</h3>
+            <p className="text-gray-600 text-sm">Add, edit, or remove job categories for both apps</p>
           </button>
 
           <button
