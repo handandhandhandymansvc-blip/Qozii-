@@ -57,6 +57,13 @@ function App() {
           <Route path="/browse-pros" element={<PrivateRoute><BrowsePros /></PrivateRoute>} />
           <Route path="/pro/:proId" element={<PrivateRoute><ProProfile /></PrivateRoute>} />
           <Route path="/messages" element={<PrivateRoute><Messages /></PrivateRoute>} />
+          
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/settings" element={<AdminSettings />} />
+          <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/revenue" element={<AdminRevenue />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
