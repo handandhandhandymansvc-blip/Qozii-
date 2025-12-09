@@ -802,6 +802,119 @@ async def get_payment_history(pro_id: str):
 async def get_payment_packages():
     return LEAD_CREDIT_PACKAGES
 
+# ============ ADMIN PAYMENT MANAGEMENT ============
+@api_router.get("/admin/payments/packages")
+async def get_admin_payment_packages():
+    packages = await db.payment_packages.find({}).to_list(100)
+    if not packages:
+        # Initialize default packages
+        default_packages = [
+            {
+                "id": str(uuid.uuid4()),
+                "package_id": "starter",
+                "name": "Starter Package",
+                "amount": 50.0,
+                "credits": 50.0,
+                "description": "5 leads ($10 each)",
+                "is_active": True,
+                "created_at": datetime.utcnow()
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "package_id": "basic",
+                "name": "Basic Package",
+                "amount": 100.0,
+                "credits": 100.0,
+                "description": "10 leads ($10 each)",
+                "is_active": True,
+                "created_at": datetime.utcnow()
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "package_id": "pro",
+                "name": "Pro Package",
+                "amount": 200.0,
+                "credits": 200.0,
+                "description": "20 leads ($10 each)",
+                "is_active": True,
+                "created_at": datetime.utcnow()
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "package_id": "premium",
+                "name": "Premium Package",
+                "amount": 500.0,
+                "credits": 500.0,
+                "description": "50 leads ($10 each)",
+                "is_active": True,
+                "created_at": datetime.utcnow()
+            }
+        ]
+        await db.payment_packages.insert_many(default_packages)
+        packages = default_packages
+    
+    for pkg in packages:
+        pkg["_id"] = str(pkg["_id"])
+    return packages
+
+@api_router.put("/admin/payments/packages/{package_id}")
+async def update_payment_package(package_id: str, package_data: dict):
+    package_data["updated_at"] = datetime.utcnow()
+    result = await db.payment_packages.update_one(
+        {"package_id": package_id},
+        {"$set": package_data}
+    )
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Package not found")
+    return {"success": True}
+
+@api_router.post("/admin/payments/packages")
+async def create_payment_package(package_data: dict):
+    package_data["id"] = str(uuid.uuid4())
+    package_data["created_at"] = datetime.utcnow()
+    await db.payment_packages.insert_one(package_data)
+    package_data["_id"] = str(package_data["_id"])
+    return {"success": True, "package": package_data}
+
+@api_router.get("/admin/payments/transactions")
+async def get_all_transactions(limit: int = 100):
+    transactions = await db.payment_transactions.find({}).sort("created_at", -1).to_list(limit)
+    for tx in transactions:
+        tx["_id"] = str(tx["_id"])
+        # Get pro name
+        pro = await db.users.find_one({"id": tx["pro_id"]})
+        if pro:
+            tx["pro_name"] = pro["name"]
+            tx["pro_email"] = pro["email"]
+    return transactions
+
+@api_router.get("/admin/payments/stats")
+async def get_payment_stats():
+    # Total revenue
+    transactions = await db.payment_transactions.find({"payment_status": "paid"}).to_list(10000)
+    total_revenue = sum(tx["amount"] for tx in transactions)
+    
+    # Revenue this month
+    from datetime import timedelta
+    start_of_month = datetime.utcnow().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    monthly_transactions = [tx for tx in transactions if tx["created_at"] >= start_of_month]
+    monthly_revenue = sum(tx["amount"] for tx in monthly_transactions)
+    
+    # Package breakdown
+    package_stats = {}
+    for tx in transactions:
+        pkg = tx.get("package_id", "unknown")
+        package_stats[pkg] = package_stats.get(pkg, 0) + 1
+    
+    return {
+        "total_revenue": total_revenue,
+        "monthly_revenue": monthly_revenue,
+        "total_transactions": len(transactions),
+        "monthly_transactions": len(monthly_transactions),
+        "package_breakdown": package_stats,
+        "avg_transaction": total_revenue / len(transactions) if transactions else 0
+    }
+
 app.include_router(api_router)
 
 app.add_middleware(
