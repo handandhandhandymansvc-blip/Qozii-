@@ -375,6 +375,155 @@ async def update_weekly_budget(pro_id: str, budget: float):
         raise HTTPException(status_code=404, detail="Profile not found")
     return {"success": True}
 
+# ============ ADMIN ROUTES ============
+@api_router.post("/admin/login")
+async def admin_login(email: str, password: str):
+    user = await db.users.find_one({"email": email})
+    if not user or user.get("role") != "admin" or not verify_password(password, user["password"]):
+        raise HTTPException(status_code=401, detail="Invalid admin credentials")
+    
+    user.pop("password")
+    user["_id"] = str(user["_id"])
+    return {"success": True, "user": user}
+
+@api_router.get("/admin/settings")
+async def get_admin_settings():
+    settings = await db.platform_settings.find_one({})
+    if not settings:
+        # Create default settings if none exist
+        default_settings = {
+            "lead_fee": 10.0,
+            "platform_commission": 0.0,
+            "featured_pro_fee": 50.0,
+            "min_quote_amount": 10.0,
+            "max_quote_amount": 10000.0,
+            "weekly_budget_min": 50.0,
+            "auto_approve_pros": False,
+            "require_background_check": False,
+            "updated_at": datetime.utcnow()
+        }
+        await db.platform_settings.insert_one(default_settings)
+        settings = default_settings
+    settings["_id"] = str(settings["_id"])
+    return settings
+
+@api_router.put("/admin/settings")
+async def update_admin_settings(settings: dict):
+    settings["updated_at"] = datetime.utcnow()
+    result = await db.platform_settings.update_one(
+        {},
+        {"$set": settings},
+        upsert=True
+    )
+    return {"success": True}
+
+@api_router.get("/admin/analytics")
+async def get_admin_analytics():
+    # Get counts
+    total_users = await db.users.count_documents({})
+    total_customers = await db.users.count_documents({"role": "customer"})
+    total_pros = await db.users.count_documents({"role": "pro"})
+    active_pros = await db.pro_profiles.count_documents({"budget_active": True})
+    
+    total_jobs = await db.jobs.count_documents({})
+    open_jobs = await db.jobs.count_documents({"status": "open"})
+    completed_jobs = await db.jobs.count_documents({"status": "completed"})
+    total_quotes = await db.quotes.count_documents({})
+    
+    # Calculate revenue
+    payments = await db.payments.find({}).to_list(10000)
+    total_revenue = sum(p["amount"] for p in payments)
+    
+    # Revenue this month
+    from datetime import datetime, timedelta
+    start_of_month = datetime.utcnow().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    revenue_this_month = sum(
+        p["amount"] for p in payments 
+        if p["created_at"] >= start_of_month
+    )
+    
+    return {
+        "total_users": total_users,
+        "total_customers": total_customers,
+        "total_pros": total_pros,
+        "active_pros": active_pros,
+        "total_jobs": total_jobs,
+        "open_jobs": open_jobs,
+        "completed_jobs": completed_jobs,
+        "total_quotes": total_quotes,
+        "total_revenue": total_revenue,
+        "revenue_this_month": revenue_this_month,
+        "avg_response_time": 2.3,  # Mock for now
+        "customer_satisfaction": 98.0  # Mock for now
+    }
+
+@api_router.get("/admin/users")
+async def get_all_users(role: Optional[str] = None, is_active: Optional[bool] = None):
+    query = {}
+    if role:
+        query["role"] = role
+    if is_active is not None:
+        query["is_active"] = is_active
+    
+    users = await db.users.find(query).sort("created_at", -1).to_list(1000)
+    for user in users:
+        user["_id"] = str(user["_id"])
+        user.pop("password", None)
+        
+        # Get pro profile info if pro
+        if user["role"] == "pro":
+            pro_profile = await db.pro_profiles.find_one({"user_id": user["id"]})
+            if pro_profile:
+                user["weekly_budget"] = pro_profile.get("weekly_budget", 0)
+                user["weekly_spent"] = pro_profile.get("weekly_spent", 0)
+                user["rating"] = pro_profile.get("rating", 0)
+                user["total_jobs"] = pro_profile.get("total_jobs", 0)
+    
+    return users
+
+@api_router.put("/admin/users/{user_id}/status")
+async def update_user_status(user_id: str, data: dict):
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"is_active": data.get("is_active", True)}}
+    )
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    return {"success": True}
+
+@api_router.get("/admin/revenue")
+async def get_admin_revenue(period: Optional[str] = "month"):
+    payments = await db.payments.find({}).sort("created_at", -1).to_list(10000)
+    
+    # Calculate totals by type
+    lead_fees = sum(p["amount"] for p in payments if p["payment_type"] == "lead_fee")
+    job_payments = sum(p["amount"] for p in payments if p["payment_type"] == "job_payment")
+    
+    # Group by month
+    from collections import defaultdict
+    monthly_revenue = defaultdict(float)
+    for payment in payments:
+        month_key = payment["created_at"].strftime("%Y-%m")
+        monthly_revenue[month_key] += payment["amount"]
+    
+    return {
+        "total_revenue": lead_fees + job_payments,
+        "lead_fees": lead_fees,
+        "job_payments": job_payments,
+        "monthly_breakdown": dict(monthly_revenue),
+        "recent_payments": [
+            {
+                "id": p["id"],
+                "pro_id": p["pro_id"],
+                "amount": p["amount"],
+                "payment_type": p["payment_type"],
+                "created_at": p["created_at"],
+                "_id": str(p["_id"])
+            }
+            for p in payments[:50]
+        ]
+    }
+
 app.include_router(api_router)
 
 app.add_middleware(
