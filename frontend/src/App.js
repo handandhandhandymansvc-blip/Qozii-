@@ -65,6 +65,7 @@ function App() {
           <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/admin/revenue" element={<AdminRevenue />} />
+          <Route path="/admin/categories" element={<AdminCategories />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
