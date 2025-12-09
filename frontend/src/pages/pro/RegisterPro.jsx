@@ -21,13 +21,19 @@ const RegisterPro = () => {
     setError('');
     setLoading(true);
 
-    const result = await register(formData);
-    if (result.success) {
-      navigate('/');
-    } else {
-      setError(result.error);
+    try {
+      const result = await register(formData);
+      if (result.success) {
+        // Redirect to pro dashboard after successful registration
+        navigate('/pro/dashboard');
+      } else {
+        setError(result.error || 'Registration failed. Please try again.');
+      }
+    } catch (err) {
+      setError('Registration failed. Please try again.');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
