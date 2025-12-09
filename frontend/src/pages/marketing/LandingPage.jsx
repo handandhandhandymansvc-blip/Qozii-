@@ -1,84 +1,97 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Home, Wrench, Calendar, CreditCard, ArrowRight, CheckCircle, Star, Users, Briefcase, Building } from 'lucide-react';
+import { ArrowRight, CheckCircle, Users, Briefcase, DollarSign, Shield, Star, TrendingUp, Zap, Clock, Award, ChevronRight } from 'lucide-react';
 
 const LandingPage = () => {
   const navigate = useNavigate();
 
+  const stats = [
+    { value: '10,000+', label: 'Jobs Posted' },
+    { value: '5,000+', label: 'Trusted Pros' },
+    { value: '98%', label: 'Satisfaction Rate' },
+    { value: '$10', label: 'Cost Per Lead' },
+  ];
+
   const features = [
     {
-      icon: <Home className="w-8 h-8" />,
-      title: 'Post Your Job Free',
-      description: 'Tell us what you need done. Quick, easy, always free for customers.'
+      icon: Shield,
+      title: 'Verified Professionals',
+      description: 'All pros are background checked and verified for your safety',
+      color: 'from-blue-500 to-blue-600'
     },
     {
-      icon: <Users className="w-8 h-8" />,
-      title: 'Get Matched with Pros',
-      description: 'Competitive pricing with quality guaranteed professionals.'
+      icon: DollarSign,
+      title: 'Best Value Pricing',
+      description: 'Competitive pricing means more savings for everyone',
+      color: 'from-green-500 to-green-600'
     },
     {
-      icon: <Wrench className="w-8 h-8" />,
-      title: 'Quality Service',
-      description: 'Work with verified, top-rated professionals in your area.'
+      icon: Zap,
+      title: 'Instant Matching',
+      description: 'Get connected with qualified pros in minutes, not days',
+      color: 'from-orange-500 to-orange-600'
     },
     {
-      icon: <CreditCard className="w-8 h-8" />,
-      title: 'Secure Payments',
-      description: 'Pay safely with multiple payment options and protection.'
+      icon: Star,
+      title: 'Quality Guaranteed',
+      description: 'Read reviews and ratings from real customers',
+      color: 'from-purple-500 to-purple-600'
     }
   ];
 
-  const services = [
-    { name: 'Home Repair', icon: '🔧' },
-    { name: 'Plumbing', icon: '🚰' },
-    { name: 'Electrical', icon: '⚡' },
-    { name: 'Cleaning', icon: '🧹' },
-    { name: 'Landscaping', icon: '🌳' },
-    { name: 'Moving', icon: '📦' },
-    { name: 'Painting', icon: '🎨' },
-    { name: 'HVAC', icon: '❄️' },
+  const howItWorksCustomer = [
+    { step: 1, title: 'Post Your Job', description: 'Describe what you need done - free and takes 2 minutes' },
+    { step: 2, title: 'Get Quotes', description: 'Receive competitive quotes from qualified pros' },
+    { step: 3, title: 'Hire & Review', description: 'Choose the best pro and get the job done' }
+  ];
+
+  const howItWorksPro = [
+    { step: 1, title: 'Create Profile', description: 'Showcase your skills and experience' },
+    { step: 2, title: 'Buy Credits', description: 'Get affordable leads with flexible credit packages' },
+    { step: 3, title: 'Grow Business', description: 'Win jobs and build your reputation' }
   ];
 
   const testimonials = [
     {
       name: 'Sarah Johnson',
       role: 'Homeowner',
-      text: 'Found a great plumber within hours! The process was so easy and the price was fair.',
-      rating: 5
+      image: '👩',
+      rating: 5,
+      text: 'Found an amazing plumber in under an hour! The process was smooth and the quality was outstanding.'
     },
     {
-      name: 'Mike Rodriguez',
-      role: 'Contractor',
-      text: 'Best decision for my business! The lead quality is excellent and I can focus on doing great work.',
-      rating: 5
+      name: 'Mike Davis',
+      role: 'Electrician',
+      image: '👨‍🔧',
+      rating: 5,
+      text: 'Best decision for my business! The lead quality is excellent and pricing is very competitive.'
     },
     {
-      name: 'Emily Chen',
-      role: 'Property Manager',
-      text: 'I manage 15 properties and FixItNow has become my go-to platform for all maintenance needs.',
-      rating: 5
+      name: 'Jennifer Lee',
+      role: 'Homeowner',
+      image: '👩‍💼',
+      rating: 5,
+      text: 'Completely free for customers and I got 5 quotes in 24 hours. The pros are professional and reasonably priced.'
     }
   ];
 
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2">
-              <div className="bg-red-600 text-white rounded-lg p-2">
-                <Wrench className="w-6 h-6" />
-              </div>
-              <span className="text-2xl font-bold text-gray-900">FixItNow</span>
+              <img src="/fixitnow-customer-logo.jpg" alt="FixItNow" className="h-10" />
             </div>
+            
             <div className="hidden md:flex items-center gap-8">
-              <a href="#how-it-works" className="text-gray-600 hover:text-red-600 font-medium">How It Works</a>
-              <a href="#pricing" className="text-gray-600 hover:text-red-600 font-medium">Pricing</a>
-              <a href="#testimonials" className="text-gray-600 hover:text-red-600 font-medium">Reviews</a>
+              <a href="#how-it-works" className="text-gray-700 hover:text-red-600 transition-colors font-medium">How It Works</a>
+              <a href="#pricing" className="text-gray-700 hover:text-red-600 transition-colors font-medium">Pricing</a>
+              <a href="#testimonials" className="text-gray-700 hover:text-red-600 transition-colors font-medium">Reviews</a>
               <button
                 onClick={() => navigate('/select')}
-                className="bg-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-700 transition"
+                className="px-6 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
               >
                 Get Started
               </button>
@@ -88,142 +101,195 @@ const LandingPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-gray-50 to-red-50 py-20">
+      <section className="pt-32 pb-20 bg-gradient-to-br from-red-50 via-orange-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="inline-block mb-4 px-4 py-2 bg-red-100 rounded-full">
-                <span className="text-red-700 font-semibold text-sm">🎉 Best Value for Quality Service</span>
+              <div className="inline-block px-4 py-2 bg-red-100 text-red-700 rounded-full text-sm font-semibold mb-6">
+                🎉 Best Value for Quality Service
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-                Get Your Home Projects Done <span className="text-red-600">Right Now</span>
+              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                Get Your Home Projects Done <span className="bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">Right Now</span>
               </h1>
               <p className="text-xl text-gray-600 mb-8">
                 Connect with trusted local professionals for any job. Free for customers, affordable for pros.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              
+              <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <button
-                  onClick={() => navigate('/register')}
-                  className="bg-red-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-red-700 transition flex items-center justify-center gap-2 group"
+                  onClick={() => navigate('/select')}
+                  className="group px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all flex items-center justify-center gap-2"
                 >
                   I Need A Pro
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition" />
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
                 <button
-                  onClick={() => navigate('/pro/register')}
-                  className="bg-white text-gray-900 px-8 py-4 rounded-lg font-semibold text-lg border-2 border-gray-300 hover:border-red-600 transition"
+                  onClick={() => navigate('/select')}
+                  className="px-8 py-4 bg-white text-gray-900 rounded-xl font-bold text-lg border-2 border-gray-300 hover:border-red-600 hover:text-red-600 transition-all"
                 >
                   I'm A Professional
                 </button>
               </div>
-              <div className="mt-8 flex items-center gap-6 text-sm">
+
+              <div className="flex items-center gap-6 text-sm text-gray-600">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span className="text-gray-700">100% Free for Customers</span>
+                  <span>100% Free for Customers</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span className="text-gray-700">Verified Professionals</span>
+                  <span>Verified Professionals</span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-2xl p-8">
-              <div className="grid grid-cols-2 gap-6">
-                <div className="text-center p-6 bg-red-50 rounded-2xl">
-                  <div className="text-4xl font-bold text-red-600 mb-2">10,000+</div>
-                  <div className="text-gray-600 font-medium">Jobs Posted</div>
-                </div>
-                <div className="text-center p-6 bg-red-50 rounded-2xl">
-                  <div className="text-4xl font-bold text-red-600 mb-2">5,000+</div>
-                  <div className="text-gray-600 font-medium">Trusted Pros</div>
-                </div>
-                <div className="text-center p-6 bg-red-50 rounded-2xl">
-                  <div className="text-4xl font-bold text-red-600 mb-2">98%</div>
-                  <div className="text-gray-600 font-medium">Satisfaction Rate</div>
-                </div>
-                <div className="text-center p-6 bg-red-50 rounded-2xl">
-                  <div className="text-4xl font-bold text-red-600 mb-2">$10</div>
-                  <div className="text-gray-600 font-medium">Cost Per Lead</div>
+            <div className="relative">
+              <div className="bg-white rounded-3xl shadow-2xl p-8">
+                <div className="grid grid-cols-2 gap-4">
+                  {stats.map((stat, index) => (
+                    <div key={index} className="text-center p-4 bg-gradient-to-br from-red-50 to-orange-50 rounded-xl">
+                      <p className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</p>
+                      <p className="text-sm text-gray-600">{stat.label}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
+              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-red-600 to-orange-600 rounded-full opacity-20 blur-3xl"></div>
+              <div className="absolute -top-6 -left-6 w-32 h-32 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full opacity-20 blur-3xl"></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section id="how-it-works" className="py-20">
+      {/* Features Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose FixItNow?</h2>
+            <p className="text-xl text-gray-600">The smarter way to connect customers with professionals</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <div key={index} className="bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-red-200 hover:shadow-xl transition-all">
+                  <div className={`w-14 h-14 bg-gradient-to-br ${feature.color} rounded-xl flex items-center justify-center mb-4`}>
+                    <Icon className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{feature.title}</h3>
+                  <p className="text-gray-600">{feature.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section id="how-it-works" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
-            <p className="text-xl text-gray-600">Simple, fast, and reliable</p>
+            <p className="text-xl text-gray-600">Simple, fast, and transparent</p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 text-red-600">
-                  {feature.icon}
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* For Customers */}
+            <div className="bg-white rounded-3xl shadow-xl p-8">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                  <Users className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="text-2xl font-bold text-gray-900">For Customers</h3>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              
+              <div className="space-y-6">
+                {howItWorksCustomer.map((item, index) => (
+                  <div key={index} className="flex gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                      {item.step}
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-1">{item.title}</h4>
+                      <p className="text-gray-600">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-      {/* Popular Services */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Popular Services</h2>
-            <p className="text-xl text-gray-600">Whatever you need, we've got you covered</p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition cursor-pointer group"
+              <button
+                onClick={() => navigate('/select')}
+                className="w-full mt-8 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
               >
-                <div className="text-4xl mb-3 group-hover:scale-110 transition">{service.icon}</div>
-                <div className="font-semibold text-gray-900">{service.name}</div>
+                Post a Job - Free
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* For Professionals */}
+            <div className="bg-white rounded-3xl shadow-xl p-8">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-orange-600 rounded-xl flex items-center justify-center">
+                  <Briefcase className="w-7 h-7 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">For Professionals</h3>
               </div>
-            ))}
+              
+              <div className="space-y-6">
+                {howItWorksPro.map((item, index) => (
+                  <div key={index} className="flex gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-red-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold">
+                      {item.step}
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-1">{item.title}</h4>
+                      <p className="text-gray-600">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                onClick={() => navigate('/select')}
+                className="w-full mt-8 px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
+              >
+                Join as a Pro
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Pricing */}
-      <section id="pricing" className="py-20">
+      {/* Pricing Section */}
+      <section id="pricing" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h2>
-            <p className="text-xl text-gray-600">No hidden fees, no surprises</p>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Transparent Pricing</h2>
+            <p className="text-xl text-gray-600">No hidden fees. Just honest, affordable prices.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="bg-white rounded-3xl p-8 border-2 border-gray-200 shadow-lg">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl p-8 border-2 border-blue-200">
               <div className="text-center mb-6">
-                <Home className="w-16 h-16 mx-auto mb-4 text-red-600" />
+                <Users className="w-16 h-16 mx-auto mb-4 text-blue-600" />
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">For Customers</h3>
-                <div className="text-5xl font-bold text-red-600 mb-2">FREE</div>
-                <p className="text-gray-600">Always Free</p>
+                <div className="text-5xl font-bold text-blue-600 mb-2">$0</div>
+                <p className="text-gray-600">100% Free Forever</p>
               </div>
               <ul className="space-y-3">
                 <li className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span>Post unlimited jobs</span>
+                  <span>Unlimited job posts</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span>Get multiple quotes</span>
+                  <span>Compare multiple quotes</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span>Review pro profiles</span>
+                  <span>Read verified reviews</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600" />
@@ -276,16 +342,21 @@ const LandingPage = () => {
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <div key={index} className="bg-white rounded-2xl shadow-lg p-6">
-                <div className="flex gap-1 mb-4">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-2xl">
+                    {testimonial.image}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
+                    <p className="text-sm text-gray-600">{testimonial.role}</p>
+                  </div>
+                </div>
+                <div className="flex gap-1 mb-3">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <p className="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
-                <div>
-                  <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                  <div className="text-sm text-gray-500">{testimonial.role}</div>
-                </div>
+                <p className="text-gray-700">{testimonial.text}</p>
               </div>
             ))}
           </div>
@@ -293,26 +364,20 @@ const LandingPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-red-600 to-red-700">
+      <section className="py-20 bg-gradient-to-r from-red-600 to-orange-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">Ready to Get Started?</h2>
+          <h2 className="text-4xl font-bold text-white mb-4">
+            Ready to Get Started?
+          </h2>
           <p className="text-xl text-red-100 mb-8">
-            Join thousands of happy customers and professionals on FixItNow
+            Join thousands of satisfied customers and professionals
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => navigate('/register')}
-              className="bg-white text-red-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition"
-            >
-              Post a Job (Free)
-            </button>
-            <button
-              onClick={() => navigate('/pro/register')}
-              className="bg-red-800 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-red-900 transition border-2 border-white"
-            >
-              Become a Pro
-            </button>
-          </div>
+          <button
+            onClick={() => navigate('/select')}
+            className="px-8 py-4 bg-white text-red-600 rounded-xl font-bold text-lg hover:shadow-2xl transition-all"
+          >
+            Sign Up Now - It's Free
+          </button>
         </div>
       </section>
 
@@ -322,40 +387,41 @@ const LandingPage = () => {
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="bg-red-600 text-white rounded-lg p-2">
-                  <Wrench className="w-6 h-6" />
+                <div className="w-8 h-8 bg-gradient-to-br from-red-600 to-orange-600 rounded-lg flex items-center justify-center">
+                  <Briefcase className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-xl font-bold">FixItNow</span>
               </div>
-              <p className="text-gray-400">Connecting customers with quality professionals.</p>
+              <p className="text-gray-400">The affordable way to connect with trusted professionals.</p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">For Customers</h4>
+              <h4 className="font-bold mb-4">For Customers</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white">How It Works</a></li>
-                <li><a href="#" className="hover:text-white">Post a Job</a></li>
-                <li><a href="#" className="hover:text-white">Browse Pros</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Post a Job</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Find Pros</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">How It Works</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">For Professionals</h4>
+              <h4 className="font-bold mb-4">For Professionals</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white">Join as Pro</a></li>
-                <li><a href="#" className="hover:text-white">Pricing</a></li>
-                <li><a href="#" className="hover:text-white">Success Stories</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Join as a Pro</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Success Stories</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Company</h4>
+              <h4 className="font-bold mb-4">Company</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white">About Us</a></li>
-                <li><a href="#" className="hover:text-white">Contact</a></li>
-                <li><a href="#" className="hover:text-white">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
               </ul>
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 FixItNow. All rights reserved.</p>
+            <p>© 2025 FixItNow. All rights reserved.</p>
           </div>
         </div>
       </footer>
