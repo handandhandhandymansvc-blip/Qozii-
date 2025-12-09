@@ -17,7 +17,7 @@ from models import (
     Message, MessageCreate,
     Review, ReviewCreate,
     ProProfile, Payment, PaymentCreate,
-    ServiceCategory
+    ServiceCategory, PlatformSettings, AdminAnalytics
 )
 
 ROOT_DIR = Path(__file__).parent
