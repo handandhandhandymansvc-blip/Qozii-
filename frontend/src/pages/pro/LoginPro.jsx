@@ -17,11 +17,15 @@ const LoginPro = () => {
 
     const result = await login(formData.email, formData.password);
     if (result.success) {
-      navigate('/');
+      // Set pro mode and force reload to Pro App
+      localStorage.setItem('app_mode', 'pro');
+      setTimeout(() => {
+        window.location.replace('/pro/dashboard');
+      }, 100);
     } else {
       setError(result.error);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
