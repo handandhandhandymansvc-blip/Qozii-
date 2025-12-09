@@ -24,16 +24,19 @@ const RegisterPro = () => {
     try {
       const result = await register(formData);
       if (result.success) {
-        // Ensure pro mode is set
+        // Set pro mode FIRST
         localStorage.setItem('app_mode', 'pro');
-        // Force reload to load Pro app
-        window.location.href = '/pro/dashboard';
+        // Add a small delay to ensure localStorage is written
+        setTimeout(() => {
+          // Force FULL page reload to switch to Pro App
+          window.location.replace('/pro/dashboard');
+        }, 100);
       } else {
         setError(result.error || 'Registration failed. Please try again.');
+        setLoading(false);
       }
     } catch (err) {
       setError('Registration failed. Please try again.');
-    } finally {
       setLoading(false);
     }
   };
