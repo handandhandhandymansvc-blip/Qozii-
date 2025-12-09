@@ -17,6 +17,7 @@ import AdminUsers from './pages/admin/AdminUsers';
 import AdminRevenue from './pages/admin/AdminRevenue';
 import AdminCategories from './pages/admin/AdminCategories';
 import AdminPayments from './pages/admin/AdminPayments';
+import LandingPage from './pages/marketing/LandingPage';
 import './App.css';
 
 const PrivateRoute = ({ children }) => {
