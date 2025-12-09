@@ -89,6 +89,8 @@ function App() {
           <Route path="/pro/earnings" element={<ProPrivateRoute><Earnings /></ProPrivateRoute>} />
           <Route path="/pro/buy-credits" element={<ProPrivateRoute><BuyCredits /></ProPrivateRoute>} />
           <Route path="/pro/payment-success" element={<ProPrivateRoute><BuyCredits /></ProPrivateRoute>} />
+          <Route path="/pro/portfolio" element={<ProPrivateRoute><Portfolio /></ProPrivateRoute>} />
+          <Route path="/pro/background-check" element={<ProPrivateRoute><BackgroundCheck /></ProPrivateRoute>} />
           
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
