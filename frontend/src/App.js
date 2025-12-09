@@ -15,6 +15,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminSettings from './pages/admin/AdminSettings';
 import AdminUsers from './pages/admin/AdminUsers';
 import AdminRevenue from './pages/admin/AdminRevenue';
+import AdminCategories from './pages/admin/AdminCategories';
 import './App.css';
 
 const PrivateRoute = ({ children }) => {
