@@ -24,8 +24,10 @@ const RegisterPro = () => {
     try {
       const result = await register(formData);
       if (result.success) {
-        // Redirect to pro dashboard after successful registration
-        navigate('/pro/dashboard');
+        // Ensure pro mode is set
+        localStorage.setItem('app_mode', 'pro');
+        // Force reload to load Pro app
+        window.location.href = '/pro/dashboard';
       } else {
         setError(result.error || 'Registration failed. Please try again.');
       }
