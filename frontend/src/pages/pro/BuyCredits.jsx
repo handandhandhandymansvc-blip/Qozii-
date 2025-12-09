@@ -102,39 +102,42 @@ const BuyCredits = () => {
 
       pollStatus();
     } catch (error) {
-      console.error('Error in payment status check:', error);
+      console.error('Error in checkPaymentStatus:', error);
     }
   };
 
   const handlePurchase = async (packageId) => {
-    if (!user) return;
-    
     setPurchasing(true);
-    setSelectedPackage(packageId);
-
     try {
-      const originUrl = window.location.origin;
-      const session = await createCheckoutSession(packageId, user.id, originUrl);
-      
-      // Redirect to Stripe Checkout
-      window.location.href = session.url;
+      const result = await createCheckoutSession(packageId);
+      if (result.url) {
+        // Redirect to Stripe Checkout
+        window.location.href = result.url;
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to create checkout session. Please try again.",
+          variant: "destructive"
+        });
+      }
     } catch (error) {
+      console.error('Error creating checkout:', error);
       toast({
         title: "Error",
-        description: "Failed to create checkout session. Please try again.",
+        description: "Something went wrong. Please try again.",
         variant: "destructive"
       });
+    } finally {
       setPurchasing(false);
-      setSelectedPackage(null);
     }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
         </div>
       </div>
     );
@@ -146,68 +149,69 @@ const BuyCredits = () => {
   }));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <button
-            onClick={() => navigate('/pro/dashboard')}
-            className="flex items-center gap-2 text-gray-700 hover:text-red-600 transition-colors mb-4"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>Back to Dashboard</span>
-          </button>
-          <h1 className="text-3xl font-bold text-gray-900">Buy Lead Credits</h1>
-          <p className="text-gray-600 mt-1">Invest in your business growth</p>
-        </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Current Balance Card */}
-        <div className="bg-gradient-to-r from-red-600 to-red-700 rounded-2xl shadow-2xl p-8 mb-8 text-white">
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
-            <div>
-              <p className="text-red-100 text-sm font-medium mb-2">Your Current Balance</p>
-              <h2 className="text-5xl font-bold mb-2">${(profile?.weekly_budget || 0).toFixed(2)}</h2>
-              <p className="text-red-100">Available for {Math.floor((profile?.weekly_budget || 0) / 10)} leads</p>
-            </div>
-            <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center">
-              <Wallet className="w-12 h-12" />
-            </div>
-          </div>
-          
-          <div className="mt-6 grid grid-cols-3 gap-4 pt-6 border-t border-red-500">
-            <div>
-              <p className="text-red-100 text-xs mb-1">This Week Spent</p>
-              <p className="text-2xl font-bold">${(profile?.weekly_spent || 0).toFixed(2)}</p>
-            </div>
-            <div>
-              <p className="text-red-100 text-xs mb-1">Leads Purchased</p>
-              <p className="text-2xl font-bold">{paymentHistory.filter(h => h.payment_status === 'paid').length}</p>
-            </div>
-            <div>
-              <p className="text-red-100 text-xs mb-1">Cost Per Lead</p>
-              <p className="text-2xl font-bold">$10</p>
-            </div>
+            <button
+              onClick={() => navigate('/pro/dashboard')}
+              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition"
+            >
+              <ArrowLeft className="w-5 h-5" />
+              <span className="font-medium">Back to Dashboard</span>
+            </button>
+            {profile && (
+              <div className="flex items-center gap-3">
+                <Wallet className="w-5 h-5 text-gray-500" />
+                <div>
+                  <p className="text-sm text-gray-500">Current Balance</p>
+                  <p className="text-lg font-bold text-gray-900">${profile.weekly_budget || 0}</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
+      </div>
 
-        {/* Why Buy More Section */}
-        <div className="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6 mb-8">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
-              <TrendingUp className="w-6 h-6 text-white" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Hero Section */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Invest in Your Success</h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Purchase credits to connect with quality customers and grow your business
+          </p>
+        </div>
+
+        {/* Benefits Section */}
+        <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-3xl p-8 mb-12">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <Shield className="w-6 h-6 text-red-600" />
+                Why Our Platform Works
+              </h3>
+              <ul className="space-y-3 text-gray-700">
+                <li className="flex items-start gap-2">
+                  <div className="w-1.5 h-1.5 bg-red-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Pre-qualified customers</strong> who are ready to hire</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <div className="w-1.5 h-1.5 bg-red-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Instant notifications</strong> when new jobs match your skills</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <div className="w-1.5 h-1.5 bg-red-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Direct communication</strong> with customers</span>
+                </li>
+              </ul>
             </div>
             <div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">Why professionals love FixItNow</h3>
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                  <span><strong>50-75% cheaper</strong> than Thumbtack ($20-60/lead)</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                  <span>Only <strong>$10 per lead</strong> - keep more of your earnings</span>
+                  <span><strong>Competitive pricing</strong> - Great value for quality leads</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
@@ -250,113 +254,69 @@ const BuyCredits = () => {
                     <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                       <CreditCard className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-1">{pkg.description.split(' ')[0]} Leads</h3>
-                    <p className="text-gray-500 text-sm">{pkg.description}</p>
-                  </div>
-
-                  <div className="text-center mb-6">
-                    <div className="flex items-baseline justify-center gap-1 mb-2">
+                    <h3 className="text-xl font-bold text-gray-900 capitalize mb-2">{pkg.id}</h3>
+                    <div className="mb-2">
                       <span className="text-4xl font-bold text-gray-900">${pkg.amount}</span>
                     </div>
-                    <p className="text-gray-500 text-sm">= {leads} job opportunities</p>
+                    <p className="text-gray-600 text-sm">{pkg.description}</p>
+                  </div>
+
+                  <div className="space-y-3 mb-6">
+                    <div className="flex items-center gap-2 text-sm">
+                      <Check className="w-4 h-4 text-green-600" />
+                      <span className="text-gray-700"><strong>${pkg.credits}</strong> in credits</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <TrendingUp className="w-4 h-4 text-blue-600" />
+                      <span className="text-gray-700">Connect with quality customers</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <Clock className="w-4 h-4 text-purple-600" />
+                      <span className="text-gray-700">Credits never expire</span>
+                    </div>
                   </div>
 
                   <button
                     onClick={() => handlePurchase(pkg.id)}
-                    disabled={purchasing && selectedPackage === pkg.id}
-                    className={`w-full py-3 rounded-xl font-semibold transition-all ${
+                    disabled={purchasing}
+                    className={`w-full py-3 rounded-lg font-semibold transition ${
                       isPopular
-                        ? 'bg-gradient-to-r from-red-600 to-red-700 text-white hover:shadow-lg'
-                        : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
-                    } disabled:opacity-50 disabled:cursor-not-allowed`}
+                        ? 'bg-red-600 text-white hover:bg-red-700'
+                        : 'bg-gray-900 text-white hover:bg-gray-800'
+                    } disabled:opacity-50`}
                   >
-                    {purchasing && selectedPackage === pkg.id ? (
-                      <span className="flex items-center justify-center gap-2">
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                        Processing...
-                      </span>
-                    ) : (
-                      'Buy Now'
-                    )}
+                    {purchasing ? 'Processing...' : 'Buy Now'}
                   </button>
-
-                  <div className="mt-4 pt-4 border-t border-gray-100 space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <Shield className="w-4 h-4 text-green-600" />
-                      <span>Secure payment</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <Clock className="w-4 h-4 text-blue-600" />
-                      <span>Credits never expire</span>
-                    </div>
-                  </div>
                 </div>
               );
             })}
           </div>
         </div>
 
-        {/* Payment Methods Accepted */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-          <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">Secure Payment Options</h3>
-          <div className="flex flex-wrap items-center justify-center gap-6">
-            <div className="flex items-center gap-2 text-gray-700">
-              <CreditCard className="w-6 h-6" />
-              <span>All Major Cards</span>
-            </div>
-            <div className="text-gray-300">|</div>
-            <div className="text-gray-700 font-semibold">Apple Pay</div>
-            <div className="text-gray-300">|</div>
-            <div className="text-gray-700 font-semibold">Google Pay</div>
-            <div className="text-gray-300">|</div>
-            <div className="text-gray-700 font-semibold">Buy Now Pay Later</div>
-          </div>
-          <p className="text-center text-gray-500 text-sm mt-4">
-            <Shield className="w-4 h-4 inline mr-1" />
-            256-bit SSL encryption • PCI compliant • Secure checkout by Stripe
-          </p>
-        </div>
-
-        {/* Recent Purchases */}
+        {/* Payment History */}
         {paymentHistory.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div className="p-6 border-b border-gray-200">
-              <h3 className="text-xl font-bold text-gray-900">Recent Purchases</h3>
-            </div>
+          <div className="bg-white rounded-2xl shadow-lg p-6">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Payment History</h3>
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
+              <table className="w-full">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Package</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Credits</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Date</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Type</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Amount</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {paymentHistory.slice(0, 5).map((tx) => (
-                    <tr key={tx.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {new Date(tx.created_at).toLocaleDateString()}
+                <tbody className="divide-y divide-gray-200">
+                  {paymentHistory.slice(0, 5).map((payment, index) => (
+                    <tr key={index}>
+                      <td className="px-4 py-3 text-sm text-gray-700">
+                        {new Date(payment.created_at).toLocaleDateString()}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 capitalize">
-                        {tx.package_id}
+                      <td className="px-4 py-3 text-sm text-gray-700 capitalize">
+                        {payment.payment_type.replace('_', ' ')}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                        ${tx.amount.toFixed(2)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">
-                        +${tx.credits.toFixed(2)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                          tx.payment_status === 'paid' ? 'bg-green-100 text-green-800' :
-                          tx.payment_status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-red-100 text-red-800'
-                        }`}>
-                          {tx.payment_status}
-                        </span>
+                      <td className="px-4 py-3 text-sm font-semibold text-gray-900">
+                        ${payment.amount}
                       </td>
                     </tr>
                   ))}
@@ -365,7 +325,26 @@ const BuyCredits = () => {
             </div>
           </div>
         )}
-      </main>
+
+        {/* FAQ Section */}
+        <div className="mt-12 bg-white rounded-2xl shadow-lg p-8">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h3>
+          <div className="space-y-4">
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-2">How do credits work?</h4>
+              <p className="text-gray-600">Credits allow you to respond to customer job requests. Each time you submit a quote, credits are deducted from your balance.</p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-2">Do credits expire?</h4>
+              <p className="text-gray-600">No! Your credits never expire. Use them at your own pace.</p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-2">Can I get a refund?</h4>
+              <p className="text-gray-600">Unused credits can be refunded within 30 days of purchase. Contact our support team for assistance.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
