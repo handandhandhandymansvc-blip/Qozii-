@@ -1,10 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Users, Briefcase, ArrowRight } from 'lucide-react';
 
 const AppSelector = () => {
-  const navigate = useNavigate();
-
   const selectCustomer = () => {
     localStorage.setItem('app_mode', 'customer');
     window.location.href = '/login';
