@@ -167,6 +167,22 @@ class Payment(BaseModel):
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 
+# Service Category Management Models
+class ServiceCategoryCreate(BaseModel):
+    name: str
+    value: str  # URL-friendly slug
+    icon: Optional[str] = "briefcase"  # Icon name
+    color: Optional[str] = "#3B82F6"  # Hex color
+    is_active: bool = True
+    display_order: int = 0
+
+class ServiceCategoryUpdate(BaseModel):
+    name: Optional[str] = None
+    icon: Optional[str] = None
+    color: Optional[str] = None
+    is_active: Optional[bool] = None
+    display_order: Optional[int] = None
+
 # Admin Settings Models
 class PlatformSettings(BaseModel):
     lead_fee: float = 10.0  # Cost per quote submission
