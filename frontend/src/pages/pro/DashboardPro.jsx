@@ -15,6 +15,7 @@ const DashboardPro = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showVerificationBanner, setShowVerificationBanner] = useState(true);
+  const [isVerificationBannerMinimized, setIsVerificationBannerMinimized] = useState(false);
 
   useEffect(() => {
     fetchDashboardData();
