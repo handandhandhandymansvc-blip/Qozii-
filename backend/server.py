@@ -30,6 +30,9 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
+# Stripe configuration
+STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY')
+
 app = FastAPI(title="FixItNow API")
 api_router = APIRouter(prefix="/api")
 
