@@ -55,7 +55,7 @@ async def register_user(user_data: UserCreate):
     user_dict["created_at"] = datetime.utcnow()
     user_dict["is_active"] = True
     
-    await db.users.insert_one(user_dict)
+    result = await db.users.insert_one(user_dict)
     
     # If pro, create pro profile
     if user_data.role == UserRole.PRO:
@@ -78,8 +78,17 @@ async def register_user(user_data: UserCreate):
         }
         await db.pro_profiles.insert_one(pro_profile)
     
-    user_dict.pop("password")
-    return {"success": True, "user": user_dict}
+    # Return clean user data
+    return_user = {
+        "id": user_dict["id"],
+        "email": user_dict["email"],
+        "name": user_dict["name"],
+        "phone": user_dict["phone"],
+        "role": user_dict["role"],
+        "created_at": user_dict["created_at"],
+        "is_active": user_dict["is_active"]
+    }
+    return {"success": True, "user": return_user}
 
 @api_router.post("/users/login")
 async def login_user(email: str, password: str):
