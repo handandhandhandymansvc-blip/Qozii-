@@ -80,9 +80,9 @@ const LandingPage = () => {
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
             <div className="flex items-center gap-2">
-              <img src="/fixitnow-customer-logo.jpg" alt="FixItNow" className="h-12" />
+              <img src="/fixitnow-customer-logo.jpg" alt="FixItNow" className="h-16" />
             </div>
             
             <div className="hidden md:flex items-center gap-8">
