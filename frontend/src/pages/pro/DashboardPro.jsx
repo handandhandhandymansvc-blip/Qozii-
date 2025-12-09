@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
-import { Briefcase, MessageSquare, LogOut, DollarSign, Star, Settings, TrendingUp, Shield, ArrowRight, X } from 'lucide-react';
+import { Briefcase, MessageSquare, LogOut, DollarSign, Star, Settings, TrendingUp, Shield, ArrowRight, X, ChevronDown, ChevronUp } from 'lucide-react';
 import VerificationBadge from '../../components/VerificationBadge';
 
 const API_URL = `${process.env.REACT_APP_BACKEND_URL}/api`;
