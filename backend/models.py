@@ -6,6 +6,7 @@ from enum import Enum
 class UserRole(str, Enum):
     CUSTOMER = "customer"
     PRO = "pro"
+    ADMIN = "admin"
 
 class JobStatus(str, Enum):
     OPEN = "open"
