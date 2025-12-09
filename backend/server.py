@@ -71,7 +71,9 @@ async def register_user(user_data: UserCreate):
             "service_areas": [],
             "hourly_rate": None,
             "years_experience": None,
-            "portfolio_images": [],
+            "profile_image": None,  # Personal photo
+            "logo_image": None,  # Business logo
+            "portfolio_images": [],  # Work samples
             "certifications": [],
             "background_check_verified": False,
             "weekly_budget": 0.0,
@@ -79,6 +81,7 @@ async def register_user(user_data: UserCreate):
             "budget_active": True,
             "rating": 0.0,
             "total_jobs": 0,
+            "cashapp_handle": None,  # For CashApp payments
             "created_at": datetime.utcnow()
         }
         await db.pro_profiles.insert_one(pro_profile)
