@@ -864,6 +864,7 @@ async def get_payment_packages():
         "pro": {"amount": 200.0, "credits": 200.0, "description": "20 leads ($10 each)"},
         "premium": {"amount": 500.0, "credits": 500.0, "description": "50 leads ($10 each)"},
     }
+    logger.info(f"Payment packages endpoint called, returning: {packages}")
     return packages
 
 # ============ ADMIN PAYMENT MANAGEMENT ============
