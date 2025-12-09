@@ -165,3 +165,31 @@ class Payment(BaseModel):
     job_id: Optional[str] = None
     status: str = "completed"
     created_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+# Admin Settings Models
+class PlatformSettings(BaseModel):
+    lead_fee: float = 10.0  # Cost per quote submission
+    platform_commission: float = 0.0  # Commission percentage on completed jobs
+    featured_pro_fee: float = 50.0  # Monthly fee for featured listing
+    min_quote_amount: float = 10.0
+    max_quote_amount: float = 10000.0
+    weekly_budget_min: float = 50.0
+    auto_approve_pros: bool = False
+    require_background_check: bool = False
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+class AdminAnalytics(BaseModel):
+    total_users: int
+    total_customers: int
+    total_pros: int
+    active_pros: int
+    total_jobs: int
+    open_jobs: int
+    completed_jobs: int
+    total_quotes: int
+    total_revenue: float
+    revenue_this_month: float
+    avg_response_time: float  # in hours
+    customer_satisfaction: float  # percentage
+
