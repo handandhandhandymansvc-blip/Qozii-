@@ -39,6 +39,8 @@ function AppPro() {
           <Route path="/pro/my-quotes" element={<PrivateRoute><MyQuotes /></PrivateRoute>} />
           <Route path="/pro/messages" element={<PrivateRoute><MessagesPro /></PrivateRoute>} />
           <Route path="/pro/earnings" element={<PrivateRoute><Earnings /></PrivateRoute>} />
+          <Route path="/pro/buy-credits" element={<PrivateRoute><BuyCredits /></PrivateRoute>} />
+          <Route path="/pro/payment-success" element={<PrivateRoute><BuyCredits /></PrivateRoute>} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
