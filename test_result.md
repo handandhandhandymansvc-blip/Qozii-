@@ -244,27 +244,33 @@ test_plan:
 
   - task: "Refactored Edit Profile Page - Import Reviews Tab Integration"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/frontend/src/pages/pro/EditProfile.jsx"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Refactored Edit Profile page to include Import Reviews functionality as a 5th tab. The standalone Import Reviews page functionality has been integrated into the Edit Profile page. Need to test: 1) Edit Profile page now has 5 tabs including Import Reviews, 2) Import Reviews tab functionality works correctly, 3) Old standalone Import Reviews button is removed from dashboard."
+        - working: false
+          agent: "testing"
+          comment: "❌ CRITICAL ISSUES FOUND: 1) Edit Profile page shows 0 tabs instead of expected 5 tabs - tab navigation is completely broken, 2) Import Reviews tab integration has issues - while the standalone button is correctly removed from dashboard, the tab functionality is not working properly, 3) Import Reviews flow partially works (connection screen shows, Google connection works, business info appears) but review import and selection functionality has problems - no review checkboxes appear after import. The refactoring has broken the tab navigation system."
 
   - task: "Enhanced Service Area Page - Granular Location Data"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/frontend/src/pages/pro/ServiceArea.jsx"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Enhanced Service Area page with granular location data including cities, suburbs, and towns based on selected states. Need to test: 1) State selection updates cities list with granular data, 2) Texas shows cities like Houston, Dallas, Austin, Katy, Sugar Land, League City, etc., 3) Ontario shows cities including Fort Erie, Toronto, Hamilton, etc., 4) City selection and removal functionality works correctly."
+        - working: false
+          agent: "testing"
+          comment: "❌ CRITICAL ISSUES FOUND: 1) Cities data is incorrect - when Texas is selected, the cities list shows US states (Alabama, Alaska, Arizona, etc.) instead of Texas cities like Houston, Dallas, Austin, Katy, Sugar Land, League City, 2) Expected Texas cities (Houston, Dallas, Fort Worth, Austin, San Antonio, Katy, Sugar Land, League City, Arlington) are NOT found in the cities list, 3) Ontario state is not available in the states list, 4) The granular location data implementation is not working correctly - cities are not being filtered by selected states. The citiesByState data structure may not be properly connected to the UI."
 
 metadata:
   created_by: "testing_agent"
