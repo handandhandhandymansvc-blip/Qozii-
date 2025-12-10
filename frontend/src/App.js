@@ -23,6 +23,7 @@ import BuyCredits from './pages/pro/BuyCredits';
 import Portfolio from './pages/pro/Portfolio';
 import BackgroundCheck from './pages/pro/BackgroundCheck';
 import ProPublicProfile from './pages/pro/ProPublicProfile';
+import EditProfile from './pages/pro/EditProfile';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminSettings from './pages/admin/AdminSettings';
