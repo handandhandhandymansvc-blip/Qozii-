@@ -445,17 +445,25 @@ const ServiceArea = () => {
               </div>
             </div>
 
-            {/* Cities Selection (Texas Example) */}
+            {/* Cities Selection */}
             <div className="bg-white rounded-2xl shadow-xl p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center">
                   <MapPin className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900">Major Cities</h2>
-                  <p className="text-gray-600">{selectedCities.length} cities selected</p>
+                  <h2 className="text-2xl font-bold text-gray-900">Cities & Suburbs</h2>
+                  <p className="text-gray-600">{selectedCities.length} locations selected</p>
                 </div>
               </div>
+
+              {selectedStates.length === 0 && (
+                <div className="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                  <p className="text-sm text-blue-900">
+                    💡 <strong>Tip:</strong> Select states above to see cities and suburbs for those states
+                  </p>
+                </div>
+              )}
 
               {/* Selected Cities */}
               {selectedCities.length > 0 && (
@@ -481,25 +489,38 @@ const ServiceArea = () => {
               )}
 
               {/* Cities Grid */}
-              <div className="max-h-64 overflow-y-auto">
-                <div className="grid grid-cols-2 gap-2">
-                  {texasCities.map(city => (
-                    <button
-                      key={city}
-                      onClick={() => toggleCity(city)}
-                      className={`px-4 py-2 rounded-lg font-medium text-left transition ${
-                        selectedCities.includes(city)
-                          ? 'bg-yellow-100 text-yellow-700 border-2 border-yellow-500'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-2 border-transparent'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">{city}</span>
-                        {selectedCities.includes(city) && <Check className="w-4 h-4" />}
-                      </div>
-                    </button>
-                  ))}
-                </div>
+              <div className="max-h-96 overflow-y-auto">
+                {availableCities.length > 0 ? (
+                  <div className="grid grid-cols-2 gap-2">
+                    {availableCities.map((city, index) => (
+                      <button
+                        key={`${city}-${index}`}
+                        onClick={() => toggleCity(city)}
+                        className={`px-4 py-2 rounded-lg font-medium text-left transition ${
+                          selectedCities.includes(city)
+                            ? 'bg-yellow-100 text-yellow-700 border-2 border-yellow-500'
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-2 border-transparent'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm">{city}</span>
+                          {selectedCities.includes(city) && <Check className="w-4 h-4" />}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-center text-gray-500 py-8">
+                    Select a state to see available cities and suburbs
+                  </p>
+                )}
+              </div>
+
+              <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <p className="text-xs text-gray-600">
+                  <strong>Showing:</strong> Major cities, suburbs, and towns in{' '}
+                  {selectedStates.length > 0 ? selectedStates.join(', ') : 'all states'}
+                </p>
               </div>
             </div>
           </div>
