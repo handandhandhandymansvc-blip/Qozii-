@@ -223,7 +223,7 @@ const DashboardPro = () => {
         )}
 
         {/* Profile Actions */}
-        <div className="grid md:grid-cols-3 gap-4 mb-6">
+        <div className="grid md:grid-cols-4 gap-4 mb-6">
           <button
             onClick={() => navigate('/pro/edit-profile')}
             className="bg-gradient-to-r from-red-600 to-red-700 text-white py-3 rounded-xl font-semibold hover:from-red-700 hover:to-red-800 transition-all shadow-md flex items-center justify-center gap-2"
@@ -237,6 +237,13 @@ const DashboardPro = () => {
           >
             <MapPin className="w-5 h-5" />
             Service Area
+          </button>
+          <button
+            onClick={() => navigate('/pro/import-reviews')}
+            className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white py-3 rounded-xl font-semibold hover:from-yellow-600 hover:to-orange-600 transition-all shadow-md flex items-center justify-center gap-2"
+          >
+            <Star className="w-5 h-5" />
+            Import Reviews
           </button>
           <button
             onClick={() => navigate(`/pro/public-profile/${user?.id}`)}
