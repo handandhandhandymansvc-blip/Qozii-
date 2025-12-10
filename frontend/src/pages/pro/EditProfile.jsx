@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Save, Upload, X, Camera, Building2, User, FileText, MapPin, DollarSign, Briefcase, Image as ImageIcon, Trash2, Plus, Check } from 'lucide-react';
+import { ArrowLeft, Save, Upload, X, Camera, Building2, User, FileText, MapPin, DollarSign, Briefcase, Image as ImageIcon, Trash2, Plus, Check, Star, CheckCircle, RefreshCw, Download } from 'lucide-react';
 import { useToast } from '../../hooks/use-toast';
 
 const API_URL = `${process.env.REACT_APP_BACKEND_URL}/api`;
