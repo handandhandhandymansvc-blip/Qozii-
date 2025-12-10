@@ -5,6 +5,61 @@ import { useToast } from '../../hooks/use-toast';
 
 const API_URL = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
+// US States and Canadian Provinces list
+const US_STATES = [
+  'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut',
+  'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa',
+  'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan',
+  'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+  'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio',
+  'Oklahoma', 'Ontario', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota',
+  'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia',
+  'Wisconsin', 'Wyoming'
+];
+
+// Major cities by state with suburbs and towns
+const CITIES_BY_STATE = {
+  'Texas': [
+    'Houston', 'Dallas', 'Fort Worth', 'Austin', 'San Antonio', 'El Paso', 'Arlington',
+    'Corpus Christi', 'Plano', 'Laredo', 'Lubbock', 'Garland', 'Irving', 'Amarillo',
+    'Grand Prairie', 'McKinney', 'Frisco', 'Pasadena', 'Mesquite', 'Killeen', 'Waco',
+    'Denton', 'Midland', 'Abilene', 'Beaumont', 'Round Rock', 'The Woodlands', 'Richardson',
+    'League City', 'Allen', 'Sugar Land', 'Pearland', 'Tyler', 'Wichita Falls', 'College Station',
+    'Lewisville', 'San Angelo', 'Katy', 'Pflugerville', 'Cedar Park', 'Georgetown', 'Carrollton'
+  ],
+  'California': [
+    'Los Angeles', 'San Diego', 'San Jose', 'San Francisco', 'Fresno', 'Sacramento', 'Long Beach',
+    'Oakland', 'Bakersfield', 'Anaheim', 'Santa Ana', 'Riverside', 'Stockton', 'Irvine', 'Chula Vista',
+    'Fremont', 'San Bernardino', 'Modesto', 'Fontana', 'Oxnard', 'Moreno Valley', 'Huntington Beach',
+    'Glendale', 'Santa Clarita', 'Garden Grove', 'Oceanside', 'Rancho Cucamonga', 'Santa Rosa',
+    'Ontario', 'Elk Grove', 'Corona', 'Lancaster', 'Palmdale', 'Salinas', 'Pomona', 'Hayward',
+    'Escondido', 'Torrance', 'Sunnyvale', 'Orange', 'Fullerton', 'Pasadena'
+  ],
+  'Florida': [
+    'Jacksonville', 'Miami', 'Tampa', 'Orlando', 'St. Petersburg', 'Hialeah', 'Port St. Lucie',
+    'Tallahassee', 'Cape Coral', 'Fort Lauderdale', 'Pembroke Pines', 'Hollywood', 'Miramar',
+    'Coral Springs', 'Clearwater', 'Miami Gardens', 'Palm Bay', 'West Palm Beach', 'Lakeland',
+    'Pompano Beach', 'Davie', 'Boca Raton', 'Fort Myers', 'Sunrise', 'Plantation', 'Deltona',
+    'Miami Beach', 'Deerfield Beach', 'Boynton Beach', 'Lauderhill', 'Weston', 'Gainesville',
+    'Sarasota', 'Naples', 'Kissimmee', 'Bradenton', 'Daytona Beach', 'Port Orange'
+  ],
+  'New York': [
+    'New York City', 'Buffalo', 'Rochester', 'Yonkers', 'Syracuse', 'Albany', 'New Rochelle',
+    'Mount Vernon', 'Schenectady', 'Utica', 'White Plains', 'Hempstead', 'Troy', 'Niagara Falls',
+    'Binghamton', 'Freeport', 'Valley Stream', 'Long Beach', 'Spring Valley', 'Brooklyn',
+    'Queens', 'Manhattan', 'Bronx', 'Staten Island', 'Poughkeepsie', 'Newburgh', 'Middletown',
+    'Port Chester', 'Jamestown', 'Ithaca', 'Auburn', 'Watertown', 'Elmira', 'Cortland'
+  ],
+  'Ontario': [
+    'Toronto', 'Ottawa', 'Mississauga', 'Hamilton', 'Brampton', 'London', 'Markham', 'Vaughan',
+    'Kitchener', 'Windsor', 'Richmond Hill', 'Oakville', 'Burlington', 'Oshawa', 'Barrie', 'St. Catharines',
+    'Cambridge', 'Kingston', 'Whitby', 'Guelph', 'Ajax', 'Thunder Bay', 'Chatham', 'Waterloo',
+    'Brantford', 'Pickering', 'Niagara Falls', 'Peterborough', 'Sarnia', 'Sault Ste. Marie',
+    'Welland', 'Belleville', 'North Bay', 'Sudbury', 'Fort Erie', 'Cornwall', 'Timmins',
+    'Woodstock', 'Stratford', 'St. Thomas', 'Orillia', 'Orangeville'
+  ]
+};
+
 const ServiceArea = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -24,65 +79,13 @@ const ServiceArea = () => {
   const [selectedStates, setSelectedStates] = useState([]);
   const [selectedCities, setSelectedCities] = useState([]);
 
-  // US States and Canadian Provinces list
-  const usStates = [
-    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut',
-    'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa',
-    'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan',
-    'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-    'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio',
-    'Oklahoma', 'Ontario', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota',
-    'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia',
-    'Wisconsin', 'Wyoming'
-  ];
-
-  // Major cities by state with suburbs and towns
-  const citiesByState = {
-    'Texas': [
-      'Houston', 'Dallas', 'Fort Worth', 'Austin', 'San Antonio', 'El Paso', 'Arlington',
-      'Corpus Christi', 'Plano', 'Laredo', 'Lubbock', 'Garland', 'Irving', 'Amarillo',
-      'Grand Prairie', 'McKinney', 'Frisco', 'Pasadena', 'Mesquite', 'Killeen', 'Waco',
-      'Denton', 'Midland', 'Abilene', 'Beaumont', 'Round Rock', 'The Woodlands', 'Richardson',
-      'League City', 'Allen', 'Sugar Land', 'Pearland', 'Tyler', 'Wichita Falls', 'College Station',
-      'Lewisville', 'San Angelo', 'Katy', 'Pflugerville', 'Cedar Park', 'Georgetown', 'Carrollton'
-    ],
-    'California': [
-      'Los Angeles', 'San Diego', 'San Jose', 'San Francisco', 'Fresno', 'Sacramento', 'Long Beach',
-      'Oakland', 'Bakersfield', 'Anaheim', 'Santa Ana', 'Riverside', 'Stockton', 'Irvine', 'Chula Vista',
-      'Fremont', 'San Bernardino', 'Modesto', 'Fontana', 'Oxnard', 'Moreno Valley', 'Huntington Beach',
-      'Glendale', 'Santa Clarita', 'Garden Grove', 'Oceanside', 'Rancho Cucamonga', 'Santa Rosa',
-      'Ontario', 'Elk Grove', 'Corona', 'Lancaster', 'Palmdale', 'Salinas', 'Pomona', 'Hayward',
-      'Escondido', 'Torrance', 'Sunnyvale', 'Orange', 'Fullerton', 'Pasadena'
-    ],
-    'Florida': [
-      'Jacksonville', 'Miami', 'Tampa', 'Orlando', 'St. Petersburg', 'Hialeah', 'Port St. Lucie',
-      'Tallahassee', 'Cape Coral', 'Fort Lauderdale', 'Pembroke Pines', 'Hollywood', 'Miramar',
-      'Coral Springs', 'Clearwater', 'Miami Gardens', 'Palm Bay', 'West Palm Beach', 'Lakeland',
-      'Pompano Beach', 'Davie', 'Boca Raton', 'Fort Myers', 'Sunrise', 'Plantation', 'Deltona',
-      'Miami Beach', 'Deerfield Beach', 'Boynton Beach', 'Lauderhill', 'Weston', 'Gainesville',
-      'Sarasota', 'Naples', 'Kissimmee', 'Bradenton', 'Daytona Beach', 'Port Orange'
-    ],
-    'New York': [
-      'New York City', 'Buffalo', 'Rochester', 'Yonkers', 'Syracuse', 'Albany', 'New Rochelle',
-      'Mount Vernon', 'Schenectady', 'Utica', 'White Plains', 'Hempstead', 'Troy', 'Niagara Falls',
-      'Binghamton', 'Freeport', 'Valley Stream', 'Long Beach', 'Spring Valley', 'Brooklyn',
-      'Queens', 'Manhattan', 'Bronx', 'Staten Island', 'Poughkeepsie', 'Newburgh', 'Middletown',
-      'Port Chester', 'Jamestown', 'Ithaca', 'Auburn', 'Watertown', 'Elmira', 'Cortland'
-    ],
-    'Ontario': [
-      'Toronto', 'Ottawa', 'Mississauga', 'Hamilton', 'Brampton', 'London', 'Markham', 'Vaughan',
-      'Kitchener', 'Windsor', 'Richmond Hill', 'Oakville', 'Burlington', 'Oshawa', 'Barrie', 'St. Catharines',
-      'Cambridge', 'Kingston', 'Whitby', 'Guelph', 'Ajax', 'Thunder Bay', 'Chatham', 'Waterloo',
-      'Brantford', 'Pickering', 'Niagara Falls', 'Peterborough', 'Sarnia', 'Sault Ste. Marie',
-      'Welland', 'Belleville', 'North Bay', 'Sudbury', 'Fort Erie', 'Cornwall', 'Timmins',
-      'Woodstock', 'Stratford', 'St. Thomas', 'Orillia', 'Orangeville'
-    ]
-  };
-
   // Get cities for selected states or show default
-  const availableCities = selectedStates.length > 0
-    ? selectedStates.flatMap(state => citiesByState[state] || [])
-    : Object.values(citiesByState).flat();
+  const availableCities = React.useMemo(() => {
+    if (selectedStates.length > 0) {
+      return selectedStates.flatMap(state => CITIES_BY_STATE[state] || []);
+    }
+    return Object.values(CITIES_BY_STATE).flat();
+  }, [selectedStates]);
 
   const radiusOptions = [
     { value: 5, label: '5 miles - Hyperlocal', color: 'bg-green-500' },
