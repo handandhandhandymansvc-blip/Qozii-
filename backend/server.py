@@ -120,10 +120,11 @@ async def get_user(user_id: str):
 # ============ PRO PROFILE ROUTES ============
 @api_router.get("/pros/{user_id}/profile")
 async def get_pro_profile(user_id: str):
-    profile = await db.pro_profiles.find_one({"user_id": user_id})
+    logger.info(f"Fetching pro profile for user_id: {user_id}")
+    profile = await db.pro_profiles.find_one({"user_id": user_id}, {"_id": 0})
+    logger.info(f"Profile found: {profile is not None}")
     if not profile:
         raise HTTPException(status_code=404, detail="Profile not found")
-    profile["_id"] = str(profile["_id"])
     return profile
 
 @api_router.put("/pros/{user_id}/profile")
