@@ -223,13 +223,20 @@ const DashboardPro = () => {
         )}
 
         {/* Profile Actions */}
-        <div className="grid md:grid-cols-2 gap-4 mb-6">
+        <div className="grid md:grid-cols-3 gap-4 mb-6">
           <button
             onClick={() => navigate('/pro/edit-profile')}
             className="bg-gradient-to-r from-red-600 to-red-700 text-white py-3 rounded-xl font-semibold hover:from-red-700 hover:to-red-800 transition-all shadow-md flex items-center justify-center gap-2"
           >
             <Settings className="w-5 h-5" />
             Edit Profile
+          </button>
+          <button
+            onClick={() => navigate('/pro/service-area')}
+            className="bg-gradient-to-r from-green-600 to-teal-600 text-white py-3 rounded-xl font-semibold hover:from-green-700 hover:to-teal-700 transition-all shadow-md flex items-center justify-center gap-2"
+          >
+            <MapPin className="w-5 h-5" />
+            Service Area
           </button>
           <button
             onClick={() => navigate(`/pro/public-profile/${user?.id}`)}
