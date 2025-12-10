@@ -242,6 +242,43 @@ test_plan:
   test_all: false
   test_priority: "high_first"
 
+  - task: "Refactored Edit Profile Page - Import Reviews Tab Integration"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/pro/EditProfile.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Refactored Edit Profile page to include Import Reviews functionality as a 5th tab. The standalone Import Reviews page functionality has been integrated into the Edit Profile page. Need to test: 1) Edit Profile page now has 5 tabs including Import Reviews, 2) Import Reviews tab functionality works correctly, 3) Old standalone Import Reviews button is removed from dashboard."
+
+  - task: "Enhanced Service Area Page - Granular Location Data"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/pro/ServiceArea.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Enhanced Service Area page with granular location data including cities, suburbs, and towns based on selected states. Need to test: 1) State selection updates cities list with granular data, 2) Texas shows cities like Houston, Dallas, Austin, Katy, Sugar Land, League City, etc., 3) Ontario shows cities including Fort Erie, Toronto, Hamilton, etc., 4) City selection and removal functionality works correctly."
+
+metadata:
+  created_by: "testing_agent"
+  version: "1.4"
+  test_sequence: 5
+
+test_plan:
+  current_focus:
+    - "Refactored Edit Profile Page - Import Reviews Tab Integration"
+    - "Enhanced Service Area Page - Granular Location Data"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
 agent_communication:
     - agent: "testing"
       message: "Completed comprehensive testing of Pro registration and login flows. The white screen bug has been successfully fixed. All three test scenarios passed: 1) Pro registration creates account and navigates to dashboard with full UI, 2) Pro login authenticates and shows complete dashboard, 3) Navigation links work correctly between pages. Dashboard shows proper welcome message, statistics, budget tracking, and job listings. No white screens detected at any point in the flow."
@@ -253,3 +290,5 @@ agent_communication:
       message: "Added Google Reviews Import System task for testing. This system includes: 1) Initial connection screen with benefits list and Google logo, 2) Google OAuth simulation with toast notifications, 3) Business info display with rating and review count, 4) Review import functionality with mock data, 5) Review selection with visual feedback and counter, 6) Save to profile functionality with navigation back to dashboard. Ready for comprehensive testing of the complete flow."
     - agent: "testing"
       message: "Completed comprehensive testing of Google Reviews Import System. Successfully tested complete end-to-end workflow: login as pro@example.com, dashboard navigation, Import Reviews button click, initial connection screen verification (heading, benefits list, Google logo), Google OAuth simulation with toast notifications, business info display (John's Professional Services, 4.8 rating, 127 reviews), review import with 5 mock reviews, review selection functionality with visual feedback and counter updates, review details verification (names, ratings, text, dates, badges), and save to profile with success toast and dashboard redirect. All functionality working perfectly with no errors detected. UI elements render correctly, interactions are responsive, and navigation flows smoothly throughout the entire process."
+    - agent: "main"
+      message: "Refactored the FixItNow app with two major changes: 1) Moved Import Google Reviews functionality from standalone page into Edit Profile page as 5th tab, 2) Enhanced Service Area page with granular location data (cities, suburbs, towns) based on selected states. Need comprehensive testing of both refactored features to ensure functionality works correctly and old standalone Import Reviews button is removed from dashboard."
