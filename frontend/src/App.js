@@ -97,6 +97,7 @@ function App() {
           <Route path="/pro/background-check" element={<ProPrivateRoute><BackgroundCheck /></ProPrivateRoute>} />
           <Route path="/pro/edit-profile" element={<ProPrivateRoute><EditProfile /></ProPrivateRoute>} />
           <Route path="/pro/service-area" element={<ProPrivateRoute><ServiceArea /></ProPrivateRoute>} />
+          <Route path="/pro/import-reviews" element={<ProPrivateRoute><ImportReviews /></ProPrivateRoute>} />
           <Route path="/pro/public-profile/:proId" element={<ProPublicProfile />} />
           
           {/* Admin Routes */}
