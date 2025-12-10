@@ -222,6 +222,17 @@ const DashboardPro = () => {
           </div>
         )}
 
+        {/* View Public Profile Button */}
+        <div className="mb-6">
+          <button
+            onClick={() => navigate(`/pro/public-profile/${user?.id}`)}
+            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all shadow-md flex items-center justify-center gap-2"
+          >
+            <Settings className="w-5 h-5" />
+            View My Public Profile
+          </button>
+        </div>
+
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow-lg p-6">
