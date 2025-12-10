@@ -205,7 +205,8 @@ const EditProfile = () => {
     { id: 'basic', name: 'Basic Info', icon: User },
     { id: 'business', name: 'Business Details', icon: Building2 },
     { id: 'photos', name: 'Photos & Portfolio', icon: ImageIcon },
-    { id: 'services', name: 'Services & Pricing', icon: Briefcase }
+    { id: 'services', name: 'Services & Pricing', icon: Briefcase },
+    { id: 'reviews', name: 'Import Reviews', icon: Star }
   ];
 
   return (
