@@ -92,6 +92,7 @@ function App() {
           <Route path="/pro/payment-success" element={<ProPrivateRoute><BuyCredits /></ProPrivateRoute>} />
           <Route path="/pro/portfolio" element={<ProPrivateRoute><Portfolio /></ProPrivateRoute>} />
           <Route path="/pro/background-check" element={<ProPrivateRoute><BackgroundCheck /></ProPrivateRoute>} />
+          <Route path="/pro/public-profile/:proId" element={<ProPublicProfile />} />
           
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
