@@ -82,9 +82,14 @@ const ServiceArea = () => {
   // Get cities for selected states or show default
   const availableCities = React.useMemo(() => {
     if (selectedStates.length > 0) {
-      return selectedStates.flatMap(state => CITIES_BY_STATE[state] || []);
+      const cities = selectedStates.flatMap(state => CITIES_BY_STATE[state] || []);
+      console.log('Selected states:', selectedStates);
+      console.log('Available cities for selected states:', cities);
+      return cities;
     }
-    return Object.values(CITIES_BY_STATE).flat();
+    const allCities = Object.values(CITIES_BY_STATE).flat();
+    console.log('All available cities:', allCities.slice(0, 10), '... (showing first 10)');
+    return allCities;
   }, [selectedStates]);
 
   const radiusOptions = [
