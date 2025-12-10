@@ -29,6 +29,14 @@ const EditProfile = () => {
   const [newService, setNewService] = useState('');
   const [uploadingImage, setUploadingImage] = useState(false);
 
+  // Import Reviews state
+  const [importing, setImporting] = useState(false);
+  const [syncing, setSyncing] = useState(false);
+  const [googleConnected, setGoogleConnected] = useState(false);
+  const [businessInfo, setBusinessInfo] = useState(null);
+  const [importedReviews, setImportedReviews] = useState([]);
+  const [selectedReviews, setSelectedReviews] = useState([]);
+
   const availableServices = [
     'Plumbing', 'Electrical', 'Carpentry', 'Painting', 'HVAC',
     'Landscaping', 'Cleaning', 'Moving', 'Handyman', 'Roofing',
