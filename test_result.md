@@ -217,15 +217,18 @@ test_plan:
 
   - task: "Google Reviews Import System"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/pages/pro/ImportReviews.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Google Reviews Import System implemented with complete flow: connection screen, Google OAuth simulation, business info display, review import, selection functionality, and save to profile. Ready for comprehensive testing."
+        - working: true
+          agent: "testing"
+          comment: "✅ Google Reviews Import System tested comprehensively and working perfectly. Complete test flow verified: 1) Login as pro@example.com successful, 2) Dashboard navigation and Import Reviews button (yellow/orange) functional, 3) Initial connection screen displays correctly with 'Connect Your Google Business Profile' heading, 4 benefits checkmarks, and Google logo, 4) 'Connect with Google' button triggers OAuth simulation with 'Connected!' toast, 5) Business info card appears with correct details (John's Professional Services, 4.8 rating, 127 reviews), 6) Import Reviews button imports 5 mock reviews successfully with success toast, 7) Review selection functionality works perfectly - checkboxes toggle selection, cards highlight in red when selected, counter updates correctly (1/5, 2/5, 3/5), 8) All review details verified (reviewer names, star ratings, review text, dates, Google badges), 9) Save to Profile button works with success toast and redirects to dashboard. All UI elements, interactions, and navigation working as expected. No errors detected."
 
 metadata:
   created_by: "testing_agent"
