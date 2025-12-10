@@ -289,7 +289,7 @@ const ServiceArea = () => {
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-red-500 focus:ring-4 focus:ring-red-100 transition-all outline-none"
                     >
                       <option value="">Select</option>
-                      {usStates.map(state => (
+                      {US_STATES.map(state => (
                         <option key={state} value={state}>{state}</option>
                       ))}
                     </select>
