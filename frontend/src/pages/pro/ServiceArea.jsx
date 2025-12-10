@@ -80,7 +80,7 @@ const ServiceArea = () => {
   const [selectedCities, setSelectedCities] = useState([]);
 
   // Get cities for selected states or show default
-  const availableCities = React.useMemo(() => {
+  const availableCities = useMemo(() => {
     if (selectedStates.length > 0) {
       const cities = selectedStates.flatMap(state => CITIES_BY_STATE[state] || []);
       console.log('Selected states:', selectedStates);
