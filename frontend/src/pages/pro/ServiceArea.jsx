@@ -195,7 +195,7 @@ const ServiceArea = () => {
     }
   };
 
-  const filteredStates = usStates.filter(state =>
+  const filteredStates = US_STATES.filter(state =>
     state.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
