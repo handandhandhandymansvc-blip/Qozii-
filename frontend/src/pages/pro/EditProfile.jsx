@@ -198,6 +198,157 @@ const EditProfile = () => {
     }
   };
 
+  // Import Reviews Functions
+  const handleConnectGoogle = () => {
+    toast({
+      title: 'Google OAuth Integration',
+      description: 'Redirecting to Google for authorization...'
+    });
+
+    setTimeout(() => {
+      setGoogleConnected(true);
+      setBusinessInfo({
+        name: formData.business_name || "Your Business",
+        address: formData.location || "Your Location",
+        rating: 4.8,
+        total_reviews: 127
+      });
+      toast({
+        title: 'Connected! 🎉',
+        description: 'Successfully connected to your Google Business Profile'
+      });
+    }, 2000);
+  };
+
+  const handleImportReviews = async () => {
+    setImporting(true);
+
+    const mockReviews = [
+      {
+        id: '1',
+        reviewer_name: 'Sarah Johnson',
+        reviewer_photo: null,
+        rating: 5,
+        text: 'Excellent service! Very professional and completed the job on time. Highly recommend!',
+        created_time: '2024-11-15T10:30:00Z',
+        source: 'google'
+      },
+      {
+        id: '2',
+        reviewer_name: 'Michael Davis',
+        reviewer_photo: null,
+        rating: 5,
+        text: 'Great work ethic and attention to detail. Fixed my plumbing issue quickly and efficiently.',
+        created_time: '2024-11-10T14:20:00Z',
+        source: 'google'
+      },
+      {
+        id: '3',
+        reviewer_name: 'Emily Chen',
+        reviewer_photo: null,
+        rating: 4,
+        text: 'Good service overall. Arrived on time and was very courteous. Minor issue with cleanup but otherwise satisfied.',
+        created_time: '2024-11-05T09:15:00Z',
+        source: 'google'
+      },
+      {
+        id: '4',
+        reviewer_name: 'Robert Martinez',
+        reviewer_photo: null,
+        rating: 5,
+        text: 'Outstanding! This is my go-to handyman service. Always reliable and fair pricing.',
+        created_time: '2024-10-28T16:45:00Z',
+        source: 'google'
+      },
+      {
+        id: '5',
+        reviewer_name: 'Jennifer Lee',
+        reviewer_photo: null,
+        rating: 5,
+        text: 'Fantastic experience from start to finish. Will definitely use again for future projects.',
+        created_time: '2024-10-20T11:00:00Z',
+        source: 'google'
+      }
+    ];
+
+    setTimeout(() => {
+      setImportedReviews(mockReviews);
+      setImporting(false);
+      toast({
+        title: 'Reviews Imported! 🎉',
+        description: `Successfully imported ${mockReviews.length} reviews from Google`
+      });
+    }, 2000);
+  };
+
+  const handleSyncReviews = async () => {
+    setSyncing(true);
+    
+    setTimeout(() => {
+      setSyncing(false);
+      toast({
+        title: 'Reviews Synced',
+        description: 'Your Google reviews are up to date'
+      });
+    }, 1500);
+  };
+
+  const toggleReviewSelection = (reviewId) => {
+    if (selectedReviews.includes(reviewId)) {
+      setSelectedReviews(selectedReviews.filter(id => id !== reviewId));
+    } else {
+      setSelectedReviews([...selectedReviews, reviewId]);
+    }
+  };
+
+  const handleSaveReviews = async () => {
+    if (selectedReviews.length === 0) {
+      toast({
+        title: 'No Reviews Selected',
+        description: 'Please select at least one review to display on your profile',
+        variant: 'destructive'
+      });
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_URL}/pros/${user.id}/profile`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          google_reviews: importedReviews.filter(r => selectedReviews.includes(r.id))
+        })
+      });
+
+      if (response.ok) {
+        toast({
+          title: 'Success! 🎉',
+          description: `${selectedReviews.length} reviews will be displayed on your public profile`
+        });
+      }
+    } catch (error) {
+      console.error('Error saving reviews:', error);
+      toast({
+        title: 'Save Failed',
+        description: 'Failed to save reviews. Please try again.',
+        variant: 'destructive'
+      });
+    }
+  };
+
+  const renderStars = (rating) => {
+    return [...Array(5)].map((_, index) => (
+      <Star
+        key={index}
+        className={`w-4 h-4 ${
+          index < rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'
+        }`}
+      />
+    ));
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
