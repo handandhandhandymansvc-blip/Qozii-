@@ -19,7 +19,7 @@ const ProPublicProfile = () => {
 
   const fetchProfile = async () => {
     try {
-      const response = await fetch(`${API_URL}/pro-profile/${proId}`);
+      const response = await fetch(`${API_URL}/pros/${proId}/profile`);
       const data = await response.json();
       setProfile(data);
     } catch (error) {
