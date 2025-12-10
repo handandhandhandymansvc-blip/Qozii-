@@ -25,6 +25,7 @@ import BackgroundCheck from './pages/pro/BackgroundCheck';
 import ProPublicProfile from './pages/pro/ProPublicProfile';
 import EditProfile from './pages/pro/EditProfile';
 import ServiceArea from './pages/pro/ServiceArea';
+import ImportReviews from './pages/pro/ImportReviews';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminSettings from './pages/admin/AdminSettings';
