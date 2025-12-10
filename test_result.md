@@ -288,11 +288,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Refactored Edit Profile Page - Import Reviews Tab Integration"
     - "Enhanced Service Area Page - Granular Location Data"
-  stuck_tasks: []
+  stuck_tasks:
+    - "Enhanced Service Area Page - Granular Location Data"
   test_all: false
-  test_priority: "high_first"
+  test_priority: "stuck_first"
 
 agent_communication:
     - agent: "testing"
