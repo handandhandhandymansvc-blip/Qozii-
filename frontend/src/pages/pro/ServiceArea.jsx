@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Save, MapPin, Crosshair, Plus, X, Check, Search, Map as MapIcon } from 'lucide-react';
 import { useToast } from '../../hooks/use-toast';
