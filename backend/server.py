@@ -969,6 +969,39 @@ async def approve_background_check(user_id: str):
     
     if result.modified_count == 0:
         raise HTTPException(status_code=404, detail="Pro profile not found")
+
+# ============ GOOGLE REVIEWS ENDPOINTS ============
+@api_router.get("/pros/{user_id}/reviews")
+async def get_pro_reviews(user_id: str):
+    """Get imported Google reviews for a pro"""
+    profile = await db.pro_profiles.find_one({"user_id": user_id}, {"_id": 0})
+    if not profile:
+        return {"reviews": [], "google_connected": False, "business_info": None}
+    
+    return {
+        "reviews": profile.get("google_reviews", []),
+        "google_connected": profile.get("google_connected", False),
+        "business_info": profile.get("google_business_info")
+    }
+
+@api_router.post("/pros/{user_id}/google-auth")
+async def connect_google_business(user_id: str, data: dict):
+    """Save Google OAuth connection info"""
+    # In production, this would handle OAuth tokens
+    # For now, we'll save the connection status
+    await db.pro_profiles.update_one(
+        {"user_id": user_id},
+        {
+            "$set": {
+                "google_connected": True,
+                "google_business_info": data.get("business_info"),
+                "google_auth_updated": datetime.now(timezone.utc).isoformat()
+            }
+        }
+    )
+    
+    return {"success": True, "message": "Google Business Profile connected"}
+
     
     logger.info(f"Background check approved for pro {user_id}")
     
