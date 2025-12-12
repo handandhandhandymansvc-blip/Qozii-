@@ -297,6 +297,31 @@ test_plan:
   test_all: false
   test_priority: "stuck_first"
 
+  - task: "Customer-Side Pro Browsing Functionality"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/customer/BrowsePros.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Customer-side pro browsing functionality needs comprehensive testing. User reports not seeing pro information. Need to test: 1) Customer login with john@example.com/password123, 2) Navigate to Browse Pros page, 3) Verify pro cards display with all required information (name, rating, bio, hourly rate, services, profile picture, badges, buttons), 4) Test individual pro profile viewing, 5) Test filters (Top Rated, Verified Only, Instant Book). Critical to verify if pros are loading and displaying correctly."
+
+metadata:
+  created_by: "testing_agent"
+  version: "1.5"
+  test_sequence: 6
+
+test_plan:
+  current_focus:
+    - "Customer-Side Pro Browsing Functionality"
+  stuck_tasks:
+    - "Enhanced Service Area Page - Granular Location Data"
+  test_all: false
+  test_priority: "high_first"
+
 agent_communication:
     - agent: "testing"
       message: "Completed comprehensive testing of Pro registration and login flows. The white screen bug has been successfully fixed. All three test scenarios passed: 1) Pro registration creates account and navigates to dashboard with full UI, 2) Pro login authenticates and shows complete dashboard, 3) Navigation links work correctly between pages. Dashboard shows proper welcome message, statistics, budget tracking, and job listings. No white screens detected at any point in the flow."
@@ -318,3 +343,5 @@ agent_communication:
       message: "FINAL RETEST RESULTS - Service Area Granular Location Fix: ✅ PARTIAL SUCCESS: Ontario search and selection now works perfectly - found in states list and can be selected. ❌ CRITICAL FAILURE PERSISTS: Cities list still shows state names (Alabama, Alaska, Arizona, Arkansas, California) instead of actual city names. Expected Texas cities (Houston, Dallas, Austin, Fort Worth, San Antonio, Katy, Sugar Land, League City, Arlington) and Ontario cities (Toronto, Ottawa, Fort Erie, Hamilton, Mississauga) are NOT displayed. The React.useMemo fix for availableCities is not working - the CITIES_BY_STATE data exists but availableCities is returning state names instead of city names. City selection mechanism works but displays wrong data. Root cause: availableCities calculation in React.useMemo is incorrect - it's not properly accessing the CITIES_BY_STATE object values."
     - agent: "testing"
       message: "FINAL VERIFICATION AFTER REACT HOOK FIX - Service Area Cities Data: ❌ CRITICAL ISSUES PERSIST - React Hook compatibility fix was UNSUCCESSFUL in resolving the core cities display bug. Comprehensive testing reveals: 1) ❌ CRITICAL BUG CONFIRMED: Cities & Suburbs section displays state names (Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut) mixed with city names instead of filtering cities by selected states, 2) ✅ PARTIAL SUCCESS: Texas cities (Houston, Dallas, Austin, Fort Worth, San Antonio, Katy, Sugar Land, League City) ARE present and functional when Texas is selected, 3) ✅ SUCCESS: Ontario cities (Toronto, Ottawa, Fort Erie, Hamilton) are present and functional when Ontario is selected, 4) ❌ ROOT CAUSE IDENTIFIED: The availableCities useMemo is not properly filtering cities by selectedStates - it's showing ALL cities from ALL states plus state names, creating a confusing mixed display. The React.useMemo import fix did not address the core logic issue in the cities filtering algorithm. This requires a deeper fix to the availableCities calculation logic, not just React Hook compatibility."
+    - agent: "main"
+      message: "Added Customer-Side Pro Browsing Functionality task for testing. User reports not seeing pro information when browsing pros. Need comprehensive testing of: 1) Customer login flow, 2) Browse Pros page functionality, 3) Pro card display with all required information, 4) Individual pro profile viewing, 5) Filter functionality. This is critical for customer experience and needs immediate testing to diagnose the reported issue."
