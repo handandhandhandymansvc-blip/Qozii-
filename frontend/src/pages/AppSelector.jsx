@@ -113,9 +113,22 @@ const AppSelector = () => {
                   <span className="text-gray-300">Build your reputation</span>
                 </li>
               </ul>
-            <div className="flex items-center gap-2 text-red-400 font-bold text-lg group-hover:gap-4 transition-all">
-              Continue as Pro <ArrowRight className="w-5 h-5" />
+              <div className="flex items-center gap-3 text-[#208FC3] font-bold text-lg group-hover:gap-5 transition-all">
+                Continue as Pro
+                <div className="w-10 h-10 bg-gradient-to-br from-[#208FC3] to-[#1C99A0] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <ArrowRight className="w-5 h-5 text-white" />
+                </div>
+              </div>
             </div>
+          </button>
+        </div>
+
+        <div className="mt-12 text-center">
+          <button
+            onClick={() => window.location.href = '/'}
+            className="text-gray-400 hover:text-[#1C99A0] transition-colors font-medium"
+          >
+            ← Back to Homepage
           </button>
         </div>
       </div>
