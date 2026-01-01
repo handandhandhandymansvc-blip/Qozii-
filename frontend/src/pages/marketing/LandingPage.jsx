@@ -1,95 +1,90 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Users, Briefcase, DollarSign, Shield, Star, TrendingUp, Zap, Clock, Award, ChevronRight, Sparkles, Rocket, Globe, MessageCircle, Heart } from 'lucide-react';
+import { ArrowRight, CheckCircle, Users, Briefcase, DollarSign, Shield, Star, TrendingUp, Zap, Clock, Award, ChevronRight, Sparkles, Rocket, Globe, MessageCircle, Heart, Wrench, Lightbulb, Droplet, Paintbrush, Wind, Leaf } from 'lucide-react';
 
 const LandingPage = () => {
   const navigate = useNavigate();
 
   const stats = [
-    { value: '10K+', label: 'Jobs Posted', icon: Briefcase, gradient: 'from-purple-400 to-pink-500' },
-    { value: '5K+', label: 'Trusted Pros', icon: Users, gradient: 'from-blue-400 to-cyan-500' },
-    { value: '98%', label: 'Happy Customers', icon: Heart, gradient: 'from-orange-400 to-red-500' },
-    { value: '$10', label: 'Per Lead', icon: DollarSign, gradient: 'from-green-400 to-emerald-500' },
+    { value: '10,000+', label: 'Jobs Completed', icon: Briefcase, gradient: 'from-purple-500 to-purple-600' },
+    { value: '5,000+', label: 'Verified Professionals', icon: Users, gradient: 'from-blue-500 to-cyan-500' },
+    { value: '98%', label: 'Satisfaction Rate', icon: Star, gradient: 'from-orange-500 to-red-500' },
+    { value: '$10', label: 'Cost Per Lead', icon: DollarSign, gradient: 'from-green-500 to-emerald-600' },
   ];
 
   const services = [
-    { name: 'Plumbing', icon: '🔧', gradient: 'from-blue-400 to-blue-600', jobs: '2.3k' },
-    { name: 'Electrical', icon: '⚡', gradient: 'from-yellow-400 to-orange-500', jobs: '1.8k' },
-    { name: 'Cleaning', icon: '✨', gradient: 'from-purple-400 to-pink-500', jobs: '3.1k' },
-    { name: 'Painting', icon: '🎨', gradient: 'from-red-400 to-pink-500', jobs: '1.5k' },
-    { name: 'HVAC', icon: '❄️', gradient: 'from-cyan-400 to-blue-500', jobs: '900' },
-    { name: 'Landscaping', icon: '🌿', gradient: 'from-green-400 to-emerald-500', jobs: '1.2k' },
+    { name: 'Plumbing', icon: Droplet, gradient: 'from-blue-500 to-blue-600', jobs: '2,345' },
+    { name: 'Electrical', icon: Zap, gradient: 'from-yellow-500 to-orange-500', jobs: '1,876' },
+    { name: 'Cleaning', icon: Sparkles, gradient: 'from-purple-500 to-pink-500', jobs: '3,102' },
+    { name: 'Painting', icon: Paintbrush, gradient: 'from-red-500 to-pink-500', jobs: '1,543' },
+    { name: 'HVAC', icon: Wind, gradient: 'from-cyan-500 to-blue-600', jobs: '987' },
+    { name: 'Landscaping', icon: Leaf, gradient: 'from-green-500 to-emerald-600', jobs: '1,234' },
   ];
 
   const features = [
     {
       icon: Shield,
-      title: 'Verified Pros',
-      description: 'Background checked professionals',
-      gradient: 'from-[#1C99A0] to-[#208FC3]',
-      color: 'text-[#1C99A0]'
+      title: 'Verified Professionals',
+      description: 'All professionals are background checked and verified for your peace of mind',
+      gradient: 'from-[#1C99A0] to-[#208FC3]'
     },
     {
       icon: Zap,
-      title: 'Instant Match',
-      description: 'Connect in minutes, not days',
-      gradient: 'from-yellow-400 to-orange-500',
-      color: 'text-yellow-500'
+      title: 'Instant Matching',
+      description: 'Get connected with qualified professionals in minutes, not days',
+      gradient: 'from-yellow-500 to-orange-500'
     },
     {
       icon: DollarSign,
-      title: 'Best Prices',
-      description: 'Competitive rates you can trust',
-      gradient: 'from-green-400 to-emerald-500',
-      color: 'text-green-500'
+      title: 'Competitive Pricing',
+      description: 'Compare multiple quotes and choose the best value for your project',
+      gradient: 'from-green-500 to-emerald-600'
     },
     {
       icon: Star,
-      title: '5-Star Rated',
-      description: 'Real reviews from real people',
-      gradient: 'from-purple-400 to-pink-500',
-      color: 'text-purple-500'
+      title: 'Quality Guaranteed',
+      description: 'Read verified reviews and ratings from real customers',
+      gradient: 'from-purple-500 to-pink-500'
     }
   ];
 
   const testimonials = [
     {
-      name: 'Sarah M.',
+      name: 'Sarah Mitchell',
       role: 'Homeowner',
-      avatar: '👩🏽',
+      initials: 'SM',
       rating: 5,
-      text: 'Found a plumber in 20 mins! Super easy and affordable. 10/10 would recommend! 🔥',
-      gradient: 'from-pink-400 to-rose-500'
+      text: 'Found an excellent plumber within 20 minutes. The entire process was smooth and professional. Highly recommend!',
+      gradient: 'from-pink-500 to-rose-500'
     },
     {
-      name: 'Mike T.',
-      role: 'Electrician',
-      avatar: '👨🏻',
+      name: 'Michael Torres',
+      role: 'Licensed Electrician',
+      initials: 'MT',
       rating: 5,
-      text: 'Best platform for pros! Quality leads and great pricing. My business has doubled! 💯',
-      gradient: 'from-blue-400 to-cyan-500'
+      text: 'The best platform for finding quality leads. My business has grown significantly since joining Qozii.',
+      gradient: 'from-blue-500 to-cyan-500'
     },
     {
-      name: 'Jennifer L.',
+      name: 'Jennifer Lee',
       role: 'Homeowner',
-      avatar: '👩🏻',
+      initials: 'JL',
       rating: 5,
-      text: 'Love how everything is transparent. Got 5 quotes and picked the perfect pro! ✨',
-      gradient: 'from-purple-400 to-pink-500'
+      text: 'Transparent pricing and professional service. Got 5 quotes and hired the perfect contractor for my renovation.',
+      gradient: 'from-purple-500 to-pink-500'
     }
   ];
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation - Modern & Clean */}
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-xl border-b border-gray-100 z-50 shadow-sm">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-xl border-b border-gray-200 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center gap-3">
-              <img src="/qozii-logo.jpg" alt="Qozii" className="h-12 rounded-xl shadow-lg" />
-              <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-gradient-to-r from-[#1C99A0] to-[#208FC3] rounded-full">
-                <Sparkles className="w-4 h-4 text-white" />
-                <span className="text-white text-sm font-bold">Fresh 2025</span>
+              <img src="/qozii-logo.jpg" alt="Qozii" className="h-12 rounded-xl shadow-md" />
+              <div className="hidden md:block text-sm text-gray-600 font-medium">
+                Professional Services Marketplace
               </div>
             </div>
             
@@ -99,86 +94,83 @@ const LandingPage = () => {
               <a href="#pricing" className="text-gray-700 hover:text-[#1C99A0] transition-colors font-semibold">Pricing</a>
               <button
                 onClick={() => navigate('/select')}
-                className="px-6 py-2.5 bg-gradient-to-r from-[#1C99A0] to-[#208FC3] text-white rounded-full font-bold hover:shadow-xl hover:scale-105 transition-all"
+                className="px-6 py-2.5 bg-gradient-to-r from-[#1C99A0] to-[#208FC3] text-white rounded-full font-bold hover:shadow-lg hover:scale-105 transition-all"
               >
-                Get Started 🚀
+                Get Started
               </button>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section - Bold & Vibrant */}
+      {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4 overflow-hidden">
-        {/* Background Gradient Blobs */}
-        <div className="absolute top-20 right-0 w-96 h-96 bg-gradient-to-br from-[#1C99A0]/20 to-[#208FC3]/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-purple-400/20 to-pink-500/20 rounded-full blur-3xl"></div>
+        {/* Background Decoration */}
+        <div className="absolute top-20 right-0 w-96 h-96 bg-gradient-to-br from-[#1C99A0]/10 to-[#208FC3]/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-full blur-3xl"></div>
         
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left - Hero Content */}
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full mb-6 border border-purple-200">
-                <span className="text-2xl">🔥</span>
-                <span className="font-bold text-purple-700">Trending in 2025</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#1C99A0]/10 to-[#208FC3]/10 rounded-full mb-6 border border-[#1C99A0]/20">
+                <Sparkles className="w-4 h-4 text-[#1C99A0]" />
+                <span className="font-semibold text-[#1C99A0]">New in 2025</span>
               </div>
               
               <h1 className="text-6xl md:text-7xl font-black mb-6 leading-tight">
-                <span className="text-gray-900">Find Your</span><br />
+                <span className="text-gray-900">Connect With</span><br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1C99A0] via-purple-500 to-pink-500">
-                  Perfect Pro
+                  Top Professionals
                 </span>
-                <span className="text-gray-900">.</span>
               </h1>
               
-              <p className="text-2xl text-gray-600 mb-8 leading-relaxed font-medium">
-                Connect with verified professionals in your area. Fast, easy, and 100% free! ✨
+              <p className="text-2xl text-gray-600 mb-8 leading-relaxed">
+                Find verified professionals for any home service. Fast, reliable, and completely free for customers.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <button
                   onClick={() => navigate('/select')}
-                  className="group relative px-8 py-5 bg-gradient-to-r from-[#1C99A0] to-[#208FC3] text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all overflow-hidden"
+                  className="group px-8 py-4 bg-gradient-to-r from-[#1C99A0] to-[#208FC3] text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2"
                 >
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    I Need A Pro
-                    <Rocket className="w-6 h-6" />
-                  </span>
+                  Find A Professional
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
                 
                 <button
                   onClick={() => navigate('/select')}
-                  className="px-8 py-5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all"
+                  className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all"
                 >
-                  I'm A Pro 💼
+                  Join as a Professional
                 </button>
               </div>
 
-              {/* Quick Stats */}
+              {/* Quick Info */}
               <div className="flex items-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-gray-600 font-semibold">5K+ Pros Online</span>
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-gray-600 font-medium">5,000+ Verified Pros</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-                  <span className="text-gray-600 font-semibold">100% Free</span>
+                  <CheckCircle className="w-5 h-5 text-[#1C99A0]" />
+                  <span className="text-gray-600 font-medium">100% Free for Customers</span>
                 </div>
               </div>
             </div>
 
             {/* Right - Stats Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-5">
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
-                  <div key={index} className="group relative bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 hover:border-transparent hover:scale-105">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} rounded-3xl opacity-0 group-hover:opacity-10 transition-all`}></div>
-                    <div className={`relative w-14 h-14 bg-gradient-to-br ${stat.gradient} rounded-2xl flex items-center justify-center mb-4 shadow-lg`}>
-                      <Icon className="w-7 h-7 text-white" />
+                  <div key={index} className="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-gray-100 hover:border-transparent hover:scale-105">
+                    <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} rounded-2xl opacity-0 group-hover:opacity-5 transition-all`}></div>
+                    <div className={`relative w-12 h-12 bg-gradient-to-br ${stat.gradient} rounded-xl flex items-center justify-center mb-4 shadow-md`}>
+                      <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <p className={`text-4xl font-black mb-1 bg-gradient-to-br ${stat.gradient} bg-clip-text text-transparent`}>{stat.value}</p>
-                    <p className="text-sm text-gray-600 font-semibold">{stat.label}</p>
+                    <p className={`text-3xl font-black mb-1 bg-gradient-to-br ${stat.gradient} bg-clip-text text-transparent`}>{stat.value}</p>
+                    <p className="text-sm text-gray-600 font-medium">{stat.label}</p>
                   </div>
                 );
               })}
@@ -187,54 +179,60 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Popular Services - Vibrant Cards */}
+      {/* Popular Services */}
       <section id="services" className="py-20 px-4 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-5xl font-black mb-4 text-gray-900">
-              Popular Services 🔥
+              Popular Services
             </h2>
-            <p className="text-xl text-gray-600">Find pros for any job, any time</p>
+            <p className="text-xl text-gray-600">Browse professionals by category</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {services.map((service, index) => (
-              <button
-                key={index}
-                onClick={() => navigate('/select')}
-                className="group relative bg-white rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all border-2 border-gray-100 hover:border-transparent hover:scale-105"
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} rounded-3xl opacity-0 group-hover:opacity-100 transition-all`}></div>
-                <div className="relative">
-                  <div className="text-5xl mb-3">{service.icon}</div>
-                  <h3 className="font-bold text-gray-900 group-hover:text-white transition-colors mb-1">{service.name}</h3>
-                  <p className="text-xs text-gray-500 group-hover:text-white/80 transition-colors font-semibold">{service.jobs} jobs</p>
-                </div>
-              </button>
-            ))}
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <button
+                  key={index}
+                  onClick={() => navigate('/select')}
+                  className="group relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all border border-gray-100 hover:border-transparent hover:scale-105"
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} rounded-2xl opacity-0 group-hover:opacity-100 transition-all`}></div>
+                  <div className="relative">
+                    <div className={`w-12 h-12 bg-gradient-to-br ${service.gradient} rounded-xl flex items-center justify-center mb-3 mx-auto shadow-md group-hover:scale-110 transition-transform`}>
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="font-bold text-gray-900 group-hover:text-white transition-colors mb-1">{service.name}</h3>
+                    <p className="text-xs text-gray-500 group-hover:text-white/80 transition-colors font-medium">{service.jobs} available</p>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Features - Modern Cards */}
+      {/* Features */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-5xl font-black mb-4 text-gray-900">
-              Why <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1C99A0] to-[#208FC3]">Qozii</span>? 💯
+            <h2 className="text-5xl font-black mb-4">
+              <span className="text-gray-900">Why Choose </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1C99A0] to-[#208FC3]">Qozii</span>
             </h2>
-            <p className="text-xl text-gray-600">We're different, and here's why</p>
+            <p className="text-xl text-gray-600">The smarter way to find home services</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <div key={index} className="group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 hover:scale-105">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} rounded-3xl opacity-0 group-hover:opacity-5 transition-all`}></div>
+                <div key={index} className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border border-gray-100 hover:scale-105">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} rounded-2xl opacity-0 group-hover:opacity-5 transition-all`}></div>
                   <div className="relative">
-                    <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform`}>
-                      <Icon className="w-8 h-8 text-white" />
+                    <div className={`w-14 h-14 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition-transform`}>
+                      <Icon className="w-7 h-7 text-white" />
                     </div>
                     <h3 className="text-xl font-bold mb-2 text-gray-900">{feature.title}</h3>
                     <p className="text-gray-600 leading-relaxed">{feature.description}</p>
@@ -250,48 +248,53 @@ const LandingPage = () => {
       <section id="how-it-works" className="py-20 px-4 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-5xl font-black mb-4 text-gray-900">How It Works ⚡</h2>
-            <p className="text-xl text-gray-600">Get started in 3 simple steps</p>
+            <h2 className="text-5xl font-black mb-4 text-gray-900">How It Works</h2>
+            <p className="text-xl text-gray-600">Get started in three simple steps</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { step: '1', title: 'Post Your Job', desc: 'Tell us what you need - takes 2 minutes', icon: '📝', gradient: 'from-blue-400 to-cyan-500' },
-              { step: '2', title: 'Get Quotes', desc: 'Receive offers from verified pros', icon: '💬', gradient: 'from-purple-400 to-pink-500' },
-              { step: '3', title: 'Hire & Relax', desc: 'Choose your pro and get it done', icon: '✅', gradient: 'from-green-400 to-emerald-500' }
-            ].map((item, index) => (
-              <div key={index} className="relative group">
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-all`}></div>
-                <div className="relative bg-white rounded-3xl p-8 shadow-xl border-2 border-gray-100 group-hover:scale-105 transition-all">
-                  <div className="text-6xl mb-4">{item.icon}</div>
-                  <div className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br ${item.gradient} rounded-full text-white font-black text-xl mb-4 shadow-lg`}>
-                    {item.step}
+              { step: '1', title: 'Post Your Job', desc: 'Describe your project in detail - it only takes 2 minutes', icon: Briefcase, gradient: 'from-blue-500 to-cyan-500' },
+              { step: '2', title: 'Review Quotes', desc: 'Receive competitive quotes from verified professionals', icon: MessageCircle, gradient: 'from-purple-500 to-pink-500' },
+              { step: '3', title: 'Hire with Confidence', desc: 'Choose the best professional and complete your project', icon: CheckCircle, gradient: 'from-green-500 to-emerald-600' }
+            ].map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <div key={index} className="relative group">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-all`}></div>
+                  <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100 group-hover:scale-105 transition-all">
+                    <div className={`w-16 h-16 bg-gradient-to-br ${item.gradient} rounded-xl flex items-center justify-center mb-4 mx-auto shadow-md`}>
+                      <Icon className="w-8 h-8 text-white" />
+                    </div>
+                    <div className={`inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br ${item.gradient} rounded-full text-white font-black text-lg mb-4 shadow-md`}>
+                      {item.step}
+                    </div>
+                    <h3 className="text-2xl font-black mb-3 text-gray-900">{item.title}</h3>
+                    <p className="text-gray-600 text-lg leading-relaxed">{item.desc}</p>
                   </div>
-                  <h3 className="text-2xl font-black mb-3 text-gray-900">{item.title}</h3>
-                  <p className="text-gray-600 text-lg">{item.desc}</p>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Testimonials - Fresh Style */}
+      {/* Testimonials */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-5xl font-black mb-4 text-gray-900">Real Talk 💬</h2>
-            <p className="text-xl text-gray-600">What people are saying</p>
+            <h2 className="text-5xl font-black mb-4 text-gray-900">Customer Reviews</h2>
+            <p className="text-xl text-gray-600">See what our users have to say</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="group relative bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 hover:scale-105">
-                <div className={`absolute inset-0 bg-gradient-to-br ${testimonial.gradient} rounded-3xl opacity-0 group-hover:opacity-5 transition-all`}></div>
+              <div key={index} className="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-gray-100 hover:scale-105">
+                <div className={`absolute inset-0 bg-gradient-to-br ${testimonial.gradient} rounded-2xl opacity-0 group-hover:opacity-5 transition-all`}></div>
                 <div className="relative">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className={`w-14 h-14 bg-gradient-to-br ${testimonial.gradient} rounded-full flex items-center justify-center text-2xl shadow-lg`}>
-                      {testimonial.avatar}
+                    <div className={`w-12 h-12 bg-gradient-to-br ${testimonial.gradient} rounded-full flex items-center justify-center shadow-md`}>
+                      <span className="font-bold text-white">{testimonial.initials}</span>
                     </div>
                     <div>
                       <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
@@ -303,7 +306,7 @@ const LandingPage = () => {
                       <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                     ))}
                   </div>
-                  <p className="text-gray-700 text-lg leading-relaxed">{testimonial.text}</p>
+                  <p className="text-gray-700 leading-relaxed">{testimonial.text}</p>
                 </div>
               </div>
             ))}
@@ -311,47 +314,46 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* CTA Section - Bold */}
+      {/* CTA Section */}
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="relative bg-gradient-to-r from-[#1C99A0] via-purple-500 to-pink-500 rounded-3xl p-12 overflow-hidden shadow-2xl">
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiIHN0cm9rZT0iI0ZGRiIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIuMSIvPjwvZz48L3N2Zz4=')] opacity-20"></div>
             <div className="relative z-10 text-center text-white">
               <h2 className="text-5xl font-black mb-4">
-                Ready to Get Started? 🚀
+                Ready to Get Started?
               </h2>
               <p className="text-2xl mb-8 opacity-90">
-                Join thousands of happy customers and pros
+                Join thousands of satisfied customers and professionals
               </p>
               <button
                 onClick={() => navigate('/select')}
-                className="px-12 py-5 bg-white text-[#1C99A0] rounded-2xl font-black text-xl shadow-2xl hover:scale-105 transition-all"
+                className="px-10 py-4 bg-white text-[#1C99A0] rounded-xl font-black text-xl shadow-xl hover:scale-105 transition-all"
               >
-                Let's Go! 💪
+                Get Started Today
               </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer - Clean & Modern */}
-      <footer className="border-t border-gray-200 py-12 px-4">
+      {/* Footer */}
+      <footer className="border-t border-gray-200 py-12 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <img src="/qozii-logo.jpg" alt="Qozii" className="h-12 rounded-xl shadow-lg mb-4" />
-              <p className="text-gray-600">The freshest way to find home services. 🔥</p>
+              <img src="/qozii-logo.jpg" alt="Qozii" className="h-12 rounded-xl shadow-md mb-4" />
+              <p className="text-gray-600">Professional services marketplace connecting customers with verified professionals.</p>
             </div>
             <div>
-              <h4 className="font-black mb-4 text-[#1C99A0]">For Customers</h4>
+              <h4 className="font-bold mb-4 text-[#1C99A0]">For Customers</h4>
               <ul className="space-y-2 text-gray-600">
                 <li><a href="#" className="hover:text-[#1C99A0] transition-colors">Post a Job</a></li>
-                <li><a href="#" className="hover:text-[#1C99A0] transition-colors">Find Pros</a></li>
+                <li><a href="#" className="hover:text-[#1C99A0] transition-colors">Find Professionals</a></li>
                 <li><a href="#" className="hover:text-[#1C99A0] transition-colors">How It Works</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-black mb-4 text-[#1C99A0]">For Professionals</h4>
+              <h4 className="font-bold mb-4 text-[#1C99A0]">For Professionals</h4>
               <ul className="space-y-2 text-gray-600">
                 <li><a href="#" className="hover:text-[#1C99A0] transition-colors">Join as a Pro</a></li>
                 <li><a href="#" className="hover:text-[#1C99A0] transition-colors">Pricing</a></li>
@@ -359,16 +361,16 @@ const LandingPage = () => {
               </ul>
             </div>
             <div>
-              <h4 className="font-black mb-4 text-[#1C99A0]">Company</h4>
+              <h4 className="font-bold mb-4 text-[#1C99A0]">Company</h4>
               <ul className="space-y-2 text-gray-600">
                 <li><a href="#" className="hover:text-[#1C99A0] transition-colors">About Us</a></li>
                 <li><a href="#" className="hover:text-[#1C99A0] transition-colors">Contact</a></li>
-                <li><a href="#" className="hover:text-[#1C99A0] transition-colors">Privacy</a></li>
+                <li><a href="#" className="hover:text-[#1C99A0] transition-colors">Privacy Policy</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-200 pt-8 text-center">
-            <p className="text-gray-600">© 2025 Qozii. Fresh to death. All rights reserved. 💯</p>
+          <div className="border-t border-gray-300 pt-8 text-center">
+            <p className="text-gray-600">© 2025 Qozii. All rights reserved.</p>
           </div>
         </div>
       </footer>
