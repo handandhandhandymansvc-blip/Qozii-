@@ -91,7 +91,7 @@ const AdminLogin = () => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="w-full pl-12 pr-4 py-3.5 bg-white/10 border-2 border-white/20 rounded-xl focus:border-purple-400 focus:ring-4 focus:ring-purple-500/30 transition-all outline-none text-white placeholder-purple-300/50 backdrop-blur-sm"
-                    placeholder="admin@fixitnow.com"
+                    placeholder="admin@qozii.com"
                   />
                 </div>
               </div>
