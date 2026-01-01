@@ -33,7 +33,7 @@ db = client[os.environ['DB_NAME']]
 # Stripe configuration
 STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY')
 
-app = FastAPI(title="FixItNow API")
+app = FastAPI(title="Qozii API")
 api_router = APIRouter(prefix="/api")
 
 logging.basicConfig(level=logging.INFO)
