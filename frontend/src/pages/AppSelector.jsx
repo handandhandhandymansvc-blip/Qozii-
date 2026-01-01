@@ -16,9 +16,9 @@ const AppSelector = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
       <div className="max-w-5xl w-full">
         <div className="text-center mb-12">
-          <img src="/fixitnow-customer-logo.jpg" alt="FixItNow" className="h-20 mx-auto mb-6" />
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Welcome to FixItNow</h1>
-          <p className="text-xl text-gray-600">Choose how you want to use FixItNow</p>
+          <img src="/qozii-logo.jpg" alt="Qozii" className="h-20 mx-auto mb-6" />
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Welcome to Qozii</h1>
+          <p className="text-xl text-gray-600">Choose how you want to use Qozii</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">

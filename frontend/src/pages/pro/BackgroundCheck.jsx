@@ -452,7 +452,7 @@ const BackgroundCheck = () => {
                     <div className="text-sm text-gray-700">
                       <p className="font-semibold mb-1">I consent to the background check *</p>
                       <p className="text-gray-600">
-                        I authorize FixItNow and Checkr to obtain consumer reports and related information about me for employment purposes. 
+                        I authorize Qozii and Checkr to obtain consumer reports and related information about me for employment purposes. 
                         I understand that the background check will include criminal history and other relevant records.
                       </p>
                     </div>

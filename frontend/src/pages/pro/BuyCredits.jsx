@@ -207,7 +207,7 @@ const BuyCredits = () => {
               </ul>
             </div>
             <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Why professionals love FixItNow</h3>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Why professionals love Qozii</h3>
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-green-600 flex-shrink-0" />

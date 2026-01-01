@@ -110,7 +110,7 @@ const Messages = () => {
               <ArrowLeft className="w-5 h-5" />
               <span className="font-medium">Back to Dashboard</span>
             </button>
-            <img src="/fixitnow-customer-logo.jpg" alt="FixItNow" className="h-12" />
+            <img src="/qozii-logo.jpg" alt="Qozii" className="h-12" />
           </div>
         </div>
       </header>

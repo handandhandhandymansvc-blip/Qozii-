@@ -85,7 +85,7 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center gap-2">
-              <img src="/fixitnow-customer-logo.jpg" alt="FixItNow" className="h-16" />
+              <img src="/qozii-logo.jpg" alt="Qozii" className="h-16" />
             </div>
             
             <div className="hidden md:flex items-center gap-8">
@@ -168,7 +168,7 @@ const LandingPage = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose FixItNow?</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose Qozii?</h2>
             <p className="text-xl text-gray-600">The smarter way to connect customers with professionals</p>
           </div>
 
@@ -391,8 +391,8 @@ const LandingPage = () => {
             <div>
               <div className="mb-4 bg-white/10 rounded-lg p-2 inline-block">
                 <img 
-                  src="/fixitnow-customer-logo.jpg" 
-                  alt="FixItNow" 
+                  src="/qozii-logo.jpg" 
+                  alt="Qozii" 
                   className="h-10"
                 />
               </div>
@@ -425,7 +425,7 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>© 2025 FixItNow. All rights reserved.</p>
+            <p>© 2025 Qozii. All rights reserved.</p>
           </div>
         </div>
       </footer>

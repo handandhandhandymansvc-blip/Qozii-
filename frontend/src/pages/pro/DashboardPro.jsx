@@ -51,7 +51,7 @@ const DashboardPro = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <img src="/fixitnow-pro-logo.jpg" alt="FixItNow Pro" className="h-12" />
+              <img src="/qozii-pro-logo.jpg" alt="Qozii Pro" className="h-12" />
               <span className="bg-yellow-400 text-gray-900 px-2 py-1 rounded-full font-bold text-xs">PRO</span>
             </div>
             <div className="flex items-center gap-4">

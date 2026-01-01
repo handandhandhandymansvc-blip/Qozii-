@@ -34,9 +34,9 @@ const Register = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <img src="/fixitnow-customer-logo.jpg" alt="FixItNow" className="h-20 mx-auto mb-4" />
+          <img src="/qozii-logo.jpg" alt="Qozii" className="h-20 mx-auto mb-4" />
           <h1 className="text-3xl font-bold text-gray-900">Create Account</h1>
-          <p className="text-gray-600 mt-2">Join FixItNow to get your jobs done</p>
+          <p className="text-gray-600 mt-2">Join Qozii to get your jobs done</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-8">

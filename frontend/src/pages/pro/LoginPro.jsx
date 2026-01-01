@@ -31,7 +31,7 @@ const LoginPro = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-block mb-4">
-            <img src="/fixitnow-pro-logo.jpg" alt="FixItNow Pro" className="h-16 mx-auto" />
+            <img src="/qozii-pro-logo.jpg" alt="Qozii Pro" className="h-16 mx-auto" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Professional Login</h1>
           <p className="text-gray-600">Access your pro dashboard</p>
@@ -152,7 +152,7 @@ const LoginPro = () => {
             {/* Sign Up Link */}
             <div className="mt-6 text-center">
               <p className="text-gray-600">
-                New to FixItNow Pro?{' '}
+                New to Qozii Pro?{' '}
                 <Link to="/pro/register" className="font-bold text-red-600 hover:text-red-700 transition-colors">
                   Register your business
                 </Link>

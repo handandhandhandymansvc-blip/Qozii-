@@ -41,7 +41,7 @@ const RegisterPro = () => {
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <img src="/fixitnow-pro-logo.jpg" alt="FixItNow Pro" className="h-16" />
+            <img src="/qozii-pro-logo.jpg" alt="Qozii Pro" className="h-16" />
             <span className="bg-yellow-400 text-gray-900 px-3 py-1 rounded-full font-bold text-sm">PRO</span>
           </div>
           <h1 className="text-3xl font-bold text-white">Join as a Pro</h1>

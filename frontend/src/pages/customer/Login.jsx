@@ -31,7 +31,7 @@ const Login = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-block mb-4">
-            <img src="/fixitnow-customer-logo.jpg" alt="FixItNow" className="h-16 mx-auto" />
+            <img src="/qozii-logo.jpg" alt="Qozii" className="h-16 mx-auto" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
           <p className="text-gray-600">Sign in to continue to your account</p>
